@@ -15,33 +15,31 @@ type freekick struct {
 	qty int
 }
 
-func (p *freekick) Todo() string {
+func (p *freekick) Todo() (string, error) {
 	result := make([]string, p.qty, p.qty)
+	str := ""
 	for i, pl := range(p.footballers) {
 		if (i < p.qty - 2) {
-			result[i] = pl.skip(i, false)
+			str, _ = pl.skipWithoutTouch(i)
 		} else if (i == p.qty - 2) {
-			result[i] = pl.skip(i, true)
+			str, _ = pl.skipAndTouch(i)
 		} else {
-			result[i] = pl.kick(i)
+			str, _ = pl.kick(i)
 		}
-		result[i] += " the ball"
+		result[i] = str
 	}
-	return strings.Join(result, "\n")
+	return strings.Join(result, "\n"), nil
 }
 
-func (f *footballer) kick(i int) string {
-	return fmt.Sprintf("%d - %s kicks", i + 1, f.name)
+func (f *footballer) kick(i int) (string, error) {
+	return fmt.Sprintf("%d - %s kicks the ball", i + 1, f.name), nil
+}
+func (f *footballer) skipAndTouch(i int) (string, error) {
+	return fmt.Sprintf("%d - %s skips, but touchs and rolls the ball", i + 1, f.name), nil
 }
 
-func (f *footballer) skip(i int, roll bool) string {
-	res := fmt.Sprintf("%d - %s skips", i + 1, f.name)
-	if (roll == false) {
-		return res + " and don't touch"
-	} else {
-		return res + ", but touch and rolls"
-	}
-	
+func (f *footballer) skipWithoutTouch(i int) (string, error) {
+	return fmt.Sprintf("%d - %s skips and don't touch the ball", i + 1, f.name), nil
 }
 
 // Newfreekick creates members of freekick
