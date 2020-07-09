@@ -4,10 +4,12 @@ package facade
 import (
 	"strings"
 	"fmt"
+
+	"github.com/criro1/wildberries/facade/pkg/facade/footballer"
 )
 
-type footballer struct {
-	name string
+type Freekick interface {
+	Todo() (string, error)
 }
 
 type freekick struct {
@@ -15,35 +17,20 @@ type freekick struct {
 	qty int
 }
 
-func (p *freekick) Todo() (string, error) {
-	result := make([]string, p.qty, p.qty)
-	str := ""
-	for i, pl := range(p.footballers) {
-		if (i < p.qty - 2) {
-			str, _ = pl.skipWithoutTouch(i)
-		} else if (i == p.qty - 2) {
-			str, _ = pl.skipAndTouch(i)
-		} else {
-			str, _ = pl.kick(i)
+func (f *freekick) Todo() (string, error) {
+	result := make([]string, f.qty, f.qty)
+	for i, pl := range(f.footballers) {
+		str, err := pl.choose(i, f.qty)
+		if err != nil {
+			return "", err
 		}
 		result[i] = str
 	}
 	return strings.Join(result, "\n"), nil
 }
 
-func (f *footballer) kick(i int) (string, error) {
-	return fmt.Sprintf("%d - %s kicks the ball", i + 1, f.name), nil
-}
-func (f *footballer) skipAndTouch(i int) (string, error) {
-	return fmt.Sprintf("%d - %s skips, but touchs and rolls the ball", i + 1, f.name), nil
-}
-
-func (f *footballer) skipWithoutTouch(i int) (string, error) {
-	return fmt.Sprintf("%d - %s skips and don't touch the ball", i + 1, f.name), nil
-}
-
 // Newfreekick creates members of freekick
-func Newfreekick(f... string) *freekick {
+func NewFreekick(f... string) Freekick {
 	l := len(f)
 	footballers := make([]footballer, l, l)
 	for i, pl := range(f) {
