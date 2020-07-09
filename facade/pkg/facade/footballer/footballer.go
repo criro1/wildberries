@@ -11,11 +11,15 @@ const (
 	withoutTouch = "%d - %s skips and don't touch the ball"
 )
 
+type InterfaceFootballer interface {
+	Choose(i, qty int) (string, error)
+}
+
 type footballer struct {
 	name string
 }
 
-func (f *footballer) choose(i, qty int) (string, error) {
+func (f *footballer) Choose(i, qty int) (string, error) {
 	if (i < qty - 2) {
 		return f.skipWithoutTouch(i)
 	} else if (i == qty - 2) {
@@ -38,3 +42,10 @@ func (f *footballer) skipAndTouch(i int) (string, error) {
 func (f *footballer) skipWithoutTouch(i int) (string, error) {
 	return fmt.Sprintf(withoutTouch, i + 1, f.name), nil
 }
+
+func NewFootballer(name string) InterfaceFootballer {
+	return &footballer{
+		name: name,
+	}
+}
+

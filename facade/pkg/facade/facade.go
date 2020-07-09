@@ -3,24 +3,21 @@ package facade
 
 import (
 	"strings"
-	"fmt"
-
-	"github.com/criro1/wildberries/facade/pkg/facade/footballer"
 )
 
-type Freekick interface {
+type interfaceFreekick interface {
 	Todo() (string, error)
 }
 
 type freekick struct {
-	footballers []footballer
+	footballers []InterfaceFootballer
 	qty int
 }
 
 func (f *freekick) Todo() (string, error) {
 	result := make([]string, f.qty, f.qty)
 	for i, pl := range(f.footballers) {
-		str, err := pl.choose(i, f.qty)
+		str, err := pl.Choose(i, f.qty)
 		if err != nil {
 			return "", err
 		}
@@ -30,11 +27,11 @@ func (f *freekick) Todo() (string, error) {
 }
 
 // Newfreekick creates members of freekick
-func NewFreekick(f... string) Freekick {
+func NewFreekick(f... string) interfaceFreekick {
 	l := len(f)
-	footballers := make([]footballer, l, l)
+	footballers := make([]InterfaceFootballer, l, l)
 	for i, pl := range(f) {
-		footballers[i].name = pl
+		footballers[i] = NewFootballer(pl)
 	}
 
 	return &freekick {
