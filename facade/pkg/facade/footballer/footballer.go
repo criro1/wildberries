@@ -3,49 +3,71 @@ package footballer
 
 import (
 	"fmt"
+	"errors"
+
+	"github.com/criro1/wildberries/facade/pkg/facade/footballer/models"
 )
 
-const (
-	kickBall = "%d - %s kicks the ball"
-	skipAndTouchBall = "%d - %s skips, but touchs and rolls the ball"
-	withoutTouch = "%d - %s skips and don't touch the ball"
-)
-
-type InterfaceFootballer interface {
+type Footballer interface {
 	Choose(i, qty int) (string, error)
+	GetQty() (int, error)
 }
 
 type footballer struct {
-	name string
+	name []string
+	qty int
+}
+
+func (f *footballer) GetQty() (int, error) {
+	if f.qty < 0 {
+		return 0, errors.New(models.BadAmount)
+	}
+	return f.qty, nil
 }
 
 func (f *footballer) Choose(i, qty int) (string, error) {
 	if (i < qty - 2) {
-		return f.skipWithoutTouch(i)
+		return f.skipWithoutTouch(i, f.name[i])
 	} else if (i == qty - 2) {
-		return f.skipAndTouch(i)
+		return f.skipAndTouch(i, f.name[i])
 	} else if (i == qty - 1) {
-		return f.kick(i)
+		return f.kick(i, f.name[i])
 	} else {
 		return "", nil
 	}
 }
 
-func (f *footballer) kick(i int) (string, error) {
-	return fmt.Sprintf(kickBall, i + 1, f.name), nil
+func (f *footballer) kick(i int, name string) (string, error) {
+	if i < 0 {
+		return "", errors.New(models.BadAmount)
+	}
+	return fmt.Sprintf(models.KickBall, i + 1, name), nil
 }
 
-func (f *footballer) skipAndTouch(i int) (string, error) {
-	return fmt.Sprintf(skipAndTouchBall, i + 1, f.name), nil
+func (f *footballer) skipAndTouch(i int, name string) (string, error) {
+	if i < 0 {
+		return "", errors.New(models.BadAmount)
+	}
+	return fmt.Sprintf(models.SkipAndTouchBall, i + 1, name), nil
 }
 
-func (f *footballer) skipWithoutTouch(i int) (string, error) {
-	return fmt.Sprintf(withoutTouch, i + 1, f.name), nil
+func (f *footballer) skipWithoutTouch(i int, name string) (string, error) {
+	if i < 0 {
+		return "", errors.New(models.BadAmount)
+	}
+	return fmt.Sprintf(models.WithoutTouch, i + 1, name), nil
 }
 
-func NewFootballer(name string) InterfaceFootballer {
+// NewFootballer ...
+func NewFootballer(f... string) Footballer {
+	l := len(f)
+	footballers := make([]string, l, l)
+	for i, pl := range(f) {
+		footballers[i] = pl
+	}
+	
 	return &footballer{
-		name: name,
+		name: footballers,
+		qty: l,
 	}
 }
-
