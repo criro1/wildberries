@@ -15,7 +15,7 @@ func main() {
 	players := footballer.NewFootballer("Ramos", "Modric", "Casemiro", "Kroos")
 	referee := referee.NewReferee("Scamina", 0, 0)
 
-	fk := facade.NewFreekick(players, referee)
+	fk := facade.NewMatch(players, referee)
 	result, err := fk.Todo("Mascelo", "Carvajal")
 	if err != nil {
 		fmt.Println("Error method Todo")

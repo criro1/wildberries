@@ -1,3 +1,4 @@
+// const for package referee
 package models
 
 const (

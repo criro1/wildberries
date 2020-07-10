@@ -2,7 +2,6 @@
 package facade
 
 import (
-	// "fmt"
 	"strings"
 )
 
@@ -17,16 +16,16 @@ type Referee interface {
 	GetStatistic() (string, error)
 }
 
-type Freekick interface {
+type Match interface {
 	Todo(badGyus... string) (string, error)
 }
 
-type freekick struct {
+type match struct {
 	footballers Footballer
 	referee Referee
 }
 
-func (f *freekick) Todo(badGyus... string) (string, error) {
+func (f *match) Todo(badGyus... string) (string, error) {
 	amount, err := f.footballers.GetQty()
 	if err != nil {
 		return "", err
@@ -47,14 +46,14 @@ func (f *freekick) Todo(badGyus... string) (string, error) {
 	}
 	result[amount], err = f.referee.GetStatistic()
 	if err != nil {
-		return "", nil
+		return "", err
 	}
 	return strings.Join(result, "\n"), nil
 }
 
 // Newfreekick creates members of freekick
-func NewFreekick(players Footballer, referee Referee) Freekick {
-	return &freekick {
+func NewMatch(players Footballer, referee Referee) Match {
+	return &match {
 		footballers: players,
 		referee: referee,
 	}	
