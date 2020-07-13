@@ -1,4 +1,4 @@
-// package footballer
+// Package footballer ...
 package footballer
 
 import (
@@ -8,6 +8,7 @@ import (
 	"github.com/criro1/wildberries/facade/pkg/models"
 )
 
+// Footballer interface ...
 type Footballer interface {
 	Choose(i, qty int) (string, error)
 	GetQty() (int, error)
@@ -32,9 +33,8 @@ func (f *footballer) Choose(i, qty int) (string, error) {
 		return f.skipAndTouch(i, f.name[i])
 	} else if i == qty-1 {
 		return f.kick(i, f.name[i])
-	} else {
-		return "", nil
 	}
+	return "", nil
 }
 
 func (f *footballer) kick(i int, name string) (string, error) {

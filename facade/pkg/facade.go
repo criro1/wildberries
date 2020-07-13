@@ -1,28 +1,30 @@
-// package facade
+// Package facade ...
 package facade
 
 import (
 	"strings"
 )
 
-type Footballer interface {
+
+type footballer interface {
 	Choose(i, qty int) (string, error)
 	GetQty() (int, error)
 }
 
-type Referee interface {
+type referee interface {
 	ShowYellowCard(player string) (string, error)
 	ShowRedCard(player string) (string, error)
 	GetStatistic() (string, error)
 }
 
-type Match interface {
+// MatchInt interface ...
+type MatchInt interface {
 	Todo(badGyus ...string) (string, error)
 }
 
 type match struct {
-	footballers Footballer
-	referee     Referee
+	footballers footballer
+	referee     referee
 }
 
 func (f *match) Todo(badGyus ...string) (string, error) {
@@ -52,7 +54,7 @@ func (f *match) Todo(badGyus ...string) (string, error) {
 }
 
 // NewMatch creates players and referee
-func NewMatch(players Footballer, referee Referee) Match {
+func NewMatch(players footballer, referee referee) MatchInt {
 	return &match{
 		footballers: players,
 		referee:     referee,

@@ -1,4 +1,4 @@
-// package footballer
+// Package referee ...
 package referee
 
 import (
@@ -8,6 +8,7 @@ import (
 	"github.com/criro1/wildberries/facade/pkg/models"
 )
 
+// Referee interface ...
 type Referee interface {
 	ShowYellowCard(player string) (string, error)
 	ShowRedCard(player string) (string, error)
