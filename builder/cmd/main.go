@@ -1,3 +1,4 @@
+// testing of package builder
 package main
 
 import (
