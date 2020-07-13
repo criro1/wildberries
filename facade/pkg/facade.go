@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-
 type footballer interface {
 	Choose(i, qty int) (string, error)
 	GetQty() (int, error)
