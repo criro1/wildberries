@@ -1,3 +1,4 @@
+// Package visitor ...
 package visitor
 
 import (
