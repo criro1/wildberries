@@ -1,14 +1,15 @@
+// package builder
 package builder
 
 import (
-	_ "fmt"
 	"errors"
+	_ "fmt"
 	"strings"
 
 	m "github.com/criro1/wildberries/builder/pkg/models"
 )
 
-
+// Builder interface
 type Builder interface {
 	MakeFish(str string) error
 	MakeVeg(str string) error
@@ -27,13 +28,13 @@ type Director struct {
 	Builder Builder
 }
 
-func(d *Director) Construct(fish, veg, sause string) {
+func (d *Director) Construct(fish, veg, sause string) {
 	d.Builder.MakeFish(fish)
 	d.Builder.MakeVeg(veg)
 	d.Builder.MakeSauce(sause)
 }
 
-func(r *RollsBuilder) MakeFish(fish string) error {
+func (r *RollsBuilder) MakeFish(fish string) error {
 	if fish == "" {
 		return errors.New(m.Wrong + m.Fish)
 	}
@@ -41,7 +42,7 @@ func(r *RollsBuilder) MakeFish(fish string) error {
 	return nil
 }
 
-func(r *RollsBuilder) MakeVeg(veg string) error {
+func (r *RollsBuilder) MakeVeg(veg string) error {
 	if veg == "" {
 		return errors.New(m.Wrong + m.Veg)
 	}
@@ -53,7 +54,7 @@ func(r *RollsBuilder) MakeVeg(veg string) error {
 	return nil
 }
 
-func(r *RollsBuilder) MakeSauce(sause string) error {
+func (r *RollsBuilder) MakeSauce(sause string) error {
 	if sause == "" {
 		return errors.New(m.Wrong + m.Sauce)
 	}

@@ -1,1 +1,1 @@
-Patterns `Builder`.
+Patterns `Builder`
