@@ -1,4 +1,4 @@
-// description of package footballer
+// package footballer
 package footballer
 
 import (

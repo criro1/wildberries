@@ -1,4 +1,4 @@
-// description of the package facade
+// package facade
 package facade
 
 import (
@@ -51,7 +51,7 @@ func (f *match) Todo(badGyus ...string) (string, error) {
 	return strings.Join(result, "\n"), nil
 }
 
-// Newfreekick creates members of freekick
+// NewMatch creates players and referee
 func NewMatch(players Footballer, referee Referee) Match {
 	return &match{
 		footballers: players,
