@@ -2,8 +2,8 @@
 package footballer
 
 import (
-	"errors"
 	"fmt"
+	"errors"
 
 	"github.com/criro1/wildberries/facade/pkg/models"
 )
@@ -21,7 +21,7 @@ type footballer struct {
 
 // GetQty gets qty from struct footballer
 func (f *footballer) GetQty() (int, error) {
-	if f.qty < 0 {
+	if f.qty <= 0 {
 		return 0, errors.New(models.BadAmount)
 	}
 	return f.qty, nil
@@ -33,10 +33,8 @@ func (f *footballer) Choose(i, qty int) (string, error) {
 		return f.skipWithoutTouch(i, f.name[i])
 	} else if i == qty-2 {
 		return f.skipAndTouch(i, f.name[i])
-	} else if i == qty-1 {
-		return f.kick(i, f.name[i])
 	}
-	return "", nil
+	return f.kick(i, f.name[i])
 }
 
 func (f *footballer) kick(i int, name string) (string, error) {
