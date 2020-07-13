@@ -26,6 +26,7 @@ type match struct {
 	referee     referee
 }
 
+// Todo return the string with all motions of the match
 func (f *match) Todo(badGyus ...string) (string, error) {
 	amount, err := f.footballers.GetQty()
 	if err != nil {
@@ -52,7 +53,7 @@ func (f *match) Todo(badGyus ...string) (string, error) {
 	return strings.Join(result, "\n"), nil
 }
 
-// NewMatch creates players and referee
+// NewMatch ...
 func NewMatch(players footballer, referee referee) MatchInt {
 	return &match{
 		footballers: players,

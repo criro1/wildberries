@@ -21,6 +21,7 @@ type referee struct {
 	redCard    int
 }
 
+// GetStatistic shows the statistic of the referee during the match
 func (r *referee) GetStatistic() (string, error) {
 	if r.yellowCard < 0 || r.redCard < 0 {
 		return "", errors.New(models.ErrorReferee)
@@ -28,6 +29,7 @@ func (r *referee) GetStatistic() (string, error) {
 	return fmt.Sprintf(models.Statistic, r.name, r.yellowCard, r.redCard), nil
 }
 
+// ShowYellowCard add the amount of yellow cards to referee and return the string with footballer, who was shown the card
 func (r *referee) ShowYellowCard(player string) (string, error) {
 	if r.yellowCard < 0 {
 		return "", errors.New(models.ErrorReferee)
@@ -36,6 +38,7 @@ func (r *referee) ShowYellowCard(player string) (string, error) {
 	return fmt.Sprintf(models.YellowCard, r.name, player), nil
 }
 
+// ShowRedCard add the amount of red cards to referee and return the string with footballer, who was shown the card
 func (r *referee) ShowRedCard(player string) (string, error) {
 	if r.redCard < 0 {
 		return "", errors.New(models.ErrorReferee)

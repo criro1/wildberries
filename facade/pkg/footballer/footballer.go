@@ -19,6 +19,7 @@ type footballer struct {
 	qty  int
 }
 
+// GetQty gets qty from struct footballer
 func (f *footballer) GetQty() (int, error) {
 	if f.qty < 0 {
 		return 0, errors.New(models.BadAmount)
@@ -26,6 +27,7 @@ func (f *footballer) GetQty() (int, error) {
 	return f.qty, nil
 }
 
+// Choose chooses one of privat metods of footballer struct
 func (f *footballer) Choose(i, qty int) (string, error) {
 	if i < qty-2 {
 		return f.skipWithoutTouch(i, f.name[i])
