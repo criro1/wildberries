@@ -2,7 +2,7 @@
 package visitor
 
 import (
-	_"fmt"
+	
 )
 
 // Visitor interface ...
@@ -15,14 +15,14 @@ type Visitor interface {
 // Services interface ...
 type Services interface {}
 
-type pharmacy struct{
+type pharmacy struct {
 	name string
 }
 
-type market struct{
+type market struct {
 	name string
 }
 
-type barbershop struct{
+type barbershop struct {
 	name string
 }
