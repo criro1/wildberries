@@ -2,10 +2,10 @@
 package referee
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 
-	"github.com/criro1/wildberries/facade/pkg/facade/referee/models"
+	"github.com/criro1/wildberries/facade/pkg/models"
 )
 
 type Referee interface {
@@ -15,9 +15,9 @@ type Referee interface {
 }
 
 type referee struct {
-	name string
+	name       string
 	yellowCard int
-	redCard int
+	redCard    int
 }
 
 func (r *referee) GetStatistic() (string, error) {
@@ -46,8 +46,8 @@ func (r *referee) ShowRedCard(player string) (string, error) {
 // NewReferee ...
 func NewReferee(name string, yellow, red int) Referee {
 	return &referee{
-		name: name,
+		name:       name,
 		yellowCard: yellow,
-		redCard: red,
+		redCard:    red,
 	}
 }

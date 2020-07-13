@@ -4,9 +4,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/criro1/wildberries/facade/pkg/facade"
-	"github.com/criro1/wildberries/facade/pkg/facade/footballer"
-	"github.com/criro1/wildberries/facade/pkg/facade/referee"
+	"github.com/criro1/wildberries/facade/pkg"
+	"github.com/criro1/wildberries/facade/pkg/footballer"
+	"github.com/criro1/wildberries/facade/pkg/referee"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 		return
 	}
 
-	if (result != expect) {
+	if result != expect {
 		fmt.Println("Error, result != expect")
 	} else {
 		fmt.Println("Everything is OK! The result is:\n\n" + result)

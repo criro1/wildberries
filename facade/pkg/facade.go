@@ -17,20 +17,20 @@ type Referee interface {
 }
 
 type Match interface {
-	Todo(badGyus... string) (string, error)
+	Todo(badGyus ...string) (string, error)
 }
 
 type match struct {
 	footballers Footballer
-	referee Referee
+	referee     Referee
 }
 
-func (f *match) Todo(badGyus... string) (string, error) {
+func (f *match) Todo(badGyus ...string) (string, error) {
 	amount, err := f.footballers.GetQty()
 	if err != nil {
 		return "", err
 	}
-	result := make([]string, amount + 1, amount + 1)
+	result := make([]string, amount+1, amount+1)
 	for i := 0; i < amount; i++ {
 		str, err := f.footballers.Choose(i, amount)
 		if err != nil {
@@ -38,10 +38,10 @@ func (f *match) Todo(badGyus... string) (string, error) {
 		}
 		result[i] = str
 	}
-	for _, bg := range(badGyus) {
+	for _, bg := range badGyus {
 		_, err := f.referee.ShowYellowCard(bg)
 		if err != nil {
-			return "" ,err
+			return "", err
 		}
 	}
 	result[amount], err = f.referee.GetStatistic()
@@ -53,8 +53,8 @@ func (f *match) Todo(badGyus... string) (string, error) {
 
 // Newfreekick creates members of freekick
 func NewMatch(players Footballer, referee Referee) Match {
-	return &match {
+	return &match{
 		footballers: players,
-		referee: referee,
-	}	
+		referee:     referee,
+	}
 }
