@@ -31,7 +31,8 @@ func (f *footballer) GetQty() (int, error) {
 func (f *footballer) Choose(i, qty int) (string, error) {
 	if i < qty-2 {
 		return f.skipWithoutTouch(i, f.name[i])
-	} else if i == qty-2 {
+	}
+	if i == qty-2 {
 		return f.skipAndTouch(i, f.name[i])
 	}
 	return f.kick(i, f.name[i])

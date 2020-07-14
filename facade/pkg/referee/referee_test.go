@@ -2,6 +2,8 @@ package referee
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestReferee(t *testing.T) {
