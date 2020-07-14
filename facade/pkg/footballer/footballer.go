@@ -2,16 +2,16 @@
 package footballer
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 
 	"github.com/criro1/wildberries/facade/pkg/models"
 )
 
 // Footballer interface ...
 type Footballer interface {
-	Choose(i, qty int) (string, error)
-	GetQty() (int, error)
+	Choose(i, qty int) (str string, err error)
+	GetQty() (x int, err error)
 }
 
 type footballer struct {
@@ -20,15 +20,18 @@ type footballer struct {
 }
 
 // GetQty gets qty from struct footballer
-func (f *footballer) GetQty() (int, error) {
+func (f *footballer) GetQty() (x int, err error) {
 	if f.qty <= 0 {
-		return 0, errors.New(models.BadAmount)
+		return x, errors.New(models.BadAmount)
 	}
 	return f.qty, nil
 }
 
 // Choose chooses one of privat metods of footballer struct
-func (f *footballer) Choose(i, qty int) (string, error) {
+func (f *footballer) Choose(i, qty int) (str string, err error) {
+	if i >= qty {
+		return str, errors.New(models.BadAmount)
+	}
 	if i < qty-2 {
 		return f.skipWithoutTouch(i, f.name[i])
 	}
@@ -38,23 +41,23 @@ func (f *footballer) Choose(i, qty int) (string, error) {
 	return f.kick(i, f.name[i])
 }
 
-func (f *footballer) kick(i int, name string) (string, error) {
+func (f *footballer) kick(i int, name string) (str string, err error) {
 	if i < 0 {
-		return "", errors.New(models.BadAmount)
+		return str, errors.New(models.BadAmount)
 	}
 	return fmt.Sprintf(models.KickBall, i+1, name), nil
 }
 
-func (f *footballer) skipAndTouch(i int, name string) (string, error) {
+func (f *footballer) skipAndTouch(i int, name string) (str string, err error) {
 	if i < 0 {
-		return "", errors.New(models.BadAmount)
+		return str, errors.New(models.BadAmount)
 	}
 	return fmt.Sprintf(models.SkipAndTouchBall, i+1, name), nil
 }
 
-func (f *footballer) skipWithoutTouch(i int, name string) (string, error) {
+func (f *footballer) skipWithoutTouch(i int, name string) (str string, err error) {
 	if i < 0 {
-		return "", errors.New(models.BadAmount)
+		return str, errors.New(models.BadAmount)
 	}
 	return fmt.Sprintf(models.WithoutTouch, i+1, name), nil
 }

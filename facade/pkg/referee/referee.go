@@ -2,8 +2,8 @@
 package referee
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 
 	"github.com/criro1/wildberries/facade/pkg/models"
 )
@@ -22,26 +22,26 @@ type referee struct {
 }
 
 // GetStatistic shows the statistic of the referee during the match
-func (r *referee) GetStatistic() (string, error) {
+func (r *referee) GetStatistic() (str string, err error) {
 	if r.yellowCard < 0 || r.redCard < 0 {
-		return "", errors.New(models.ErrorReferee)
+		return str, errors.New(models.ErrorReferee)
 	}
 	return fmt.Sprintf(models.Statistic, r.name, r.yellowCard, r.redCard), nil
 }
 
 // ShowYellowCard add the amount of yellow cards to referee and return the string with footballer, who was shown the card
-func (r *referee) ShowYellowCard(player string) (string, error) {
+func (r *referee) ShowYellowCard(player string) (str string, err error) {
 	if r.yellowCard < 0 {
-		return "", errors.New(models.ErrorReferee)
+		return str, errors.New(models.ErrorReferee)
 	}
 	r.yellowCard++
 	return fmt.Sprintf(models.YellowCard, r.name, player), nil
 }
 
 // ShowRedCard add the amount of red cards to referee and return the string with footballer, who was shown the card
-func (r *referee) ShowRedCard(player string) (string, error) {
+func (r *referee) ShowRedCard(player string) (str string, err error) {
 	if r.redCard < 0 {
-		return "", errors.New(models.ErrorReferee)
+		return str, errors.New(models.ErrorReferee)
 	}
 	r.redCard++
 	return fmt.Sprintf(models.RedCard, r.name, player), nil

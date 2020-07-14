@@ -3,20 +3,42 @@ package facade
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	foot "github.com/criro1/wildberries/facade/pkg/footballer"
 	ref "github.com/criro1/wildberries/facade/pkg/referee"
+	"github.com/stretchr/testify/assert"
+)
+
+var (
+	expected       = "1 - Pepe kicks the ball\nReferee Gusev shows 1 yellow cards and 0 red cards in this match"
+	GetQty         = "GetQty"
+	Choose         = "Choose"
+	PepeKick       = "1 - Pepe kicks the ball"
+	ShowYellowCard = "ShowYellowCard"
+	Ibrahimovic    = "Ibrahimovic"
+	GusevShow      = "Gusev shows yellow card to Aguero"
+	GetStatistic   = "GetStatistic"
+	RefereeResult  = "Referee Gusev shows 1 yellow cards and 0 red cards in this match"
 )
 
 func TestFacade(t *testing.T) {
-	f := foot.NewFootballer("Vinisius", "Casemiro", "Modric", "Pepe")
-	r := ref.NewReferee("Vorobyev", 0, 0)
-	m := NewMatch(f, r)
-	expected := "1 - Vinisius skips and don't touch the ball\n2 - Casemiro skips and don't touch the ball\n3 - Modric skips, but touchs and rolls the ball\n4 - Pepe kicks the ball\nReferee Vorobyev shows 3 yellow cards and 0 red cards in this match"
 	t.Run("Todo", func(t *testing.T) {
-		result, err := m.Todo("Ronaldo", "Messi", "Ibrahimovic")
+		footMock := new(foot.MockFb)
+
+		footMock.On(GetQty).Return(1, nil).Once()
+		footMock.On(Choose, 0, 1).Return(PepeKick, nil).Once()
+
+		refMock := new(ref.MockRef)
+
+		refMock.On(ShowYellowCard, Ibrahimovic).Return(GusevShow, nil).Once()
+		refMock.On(GetStatistic).Return(RefereeResult, nil).Once()
+
+		match := NewMatch(
+			footMock,
+			refMock,
+		)
+
+		result, err := match.Todo(Ibrahimovic)
 		assert.NoError(t, err, "unexpected error:", err)
 		assert.EqualValues(t, expected, result)
 	})
-
 }
