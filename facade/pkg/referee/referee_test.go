@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestReferee(t *testing.T) {
+func TestRefereeYellow(t *testing.T) {
 	r := NewReferee("Kassai", 0, 0)
 
 	expectedYellow := "Kassai shows yellow card to Fernandez"
@@ -15,6 +15,9 @@ func TestReferee(t *testing.T) {
 		assert.NoError(t, err, "unexpected error:", err)
 		assert.EqualValues(t, expectedYellow, resultYellow)
 	})
+}
+func TestRefereeRed(t *testing.T) {
+	r := NewReferee("Kassai", 0, 0)
 
 	expectedRed := "Kassai shows red card to James Rodriguez"
 	t.Run("ShowRedCard", func(t *testing.T) {
@@ -22,10 +25,16 @@ func TestReferee(t *testing.T) {
 		assert.NoError(t, err, "unexpected error:", err)
 		assert.EqualValues(t, expectedRed, resultRed)
 	})
-	
+}
+
+func TestRefereeStat(t *testing.T) {
+	r := NewReferee("Kassai", 0, 0)
+
 	expected := "Referee Kassai shows 2 yellow cards and 1 red cards in this match"
-	t.Run("ShowRedCard", func(t *testing.T) {
+	t.Run("Statistic", func(t *testing.T) {
 		r.ShowYellowCard("Valverde")
+		r.ShowYellowCard("Lucas")
+		r.ShowRedCard("James Rodriguez")
 		result, err := r.GetStatistic()
 		assert.NoError(t, err, "unexpected error:", err)
 		assert.EqualValues(t, expected, result)
