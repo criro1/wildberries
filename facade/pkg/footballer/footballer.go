@@ -45,21 +45,21 @@ func (f *footballer) kick(i int, name string) (str string, err error) {
 	if i < 0 {
 		return str, errors.New(models.BadAmount)
 	}
-	return fmt.Sprintf(models.KickBall, i+1, name), nil
+	return fmt.Sprintf(models.KickBall, i + 1, name), nil
 }
 
 func (f *footballer) skipAndTouch(i int, name string) (str string, err error) {
 	if i < 0 {
 		return str, errors.New(models.BadAmount)
 	}
-	return fmt.Sprintf(models.SkipAndTouchBall, i+1, name), nil
+	return fmt.Sprintf(models.SkipAndTouchBall, i + 1, name), nil
 }
 
 func (f *footballer) skipWithoutTouch(i int, name string) (str string, err error) {
 	if i < 0 {
 		return str, errors.New(models.BadAmount)
 	}
-	return fmt.Sprintf(models.WithoutTouch, i+1, name), nil
+	return fmt.Sprintf(models.WithoutTouch, i + 1, name), nil
 }
 
 // NewFootballer ...

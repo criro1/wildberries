@@ -10,9 +10,9 @@ import (
 
 // Referee interface ...
 type Referee interface {
-	ShowYellowCard(player string) (string, error)
-	ShowRedCard(player string) (string, error)
-	GetStatistic() (string, error)
+	ShowYellowCard(player string) (str string, err error)
+	ShowRedCard(player string) (str string, err error)
+	GetStatistic() (str string, err error)
 }
 
 type referee struct {

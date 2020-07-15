@@ -6,19 +6,19 @@ import (
 )
 
 type footballer interface {
-	Choose(i, qty int) (string, error)
-	GetQty() (int, error)
+	Choose(i, qty int) (str string, err error)
+	GetQty() (x int, err error)
 }
 
 type referee interface {
-	ShowYellowCard(player string) (string, error)
-	ShowRedCard(player string) (string, error)
-	GetStatistic() (string, error)
+	ShowYellowCard(player string) (str string, err error)
+	ShowRedCard(player string) (str string, err error)
+	GetStatistic() (str string, err error)
 }
 
 // MatchInt interface ...
 type MatchInt interface {
-	Todo(badGyus ...string) (string, error)
+	Todo(badGyus ...string) (str string, err error)
 }
 
 type match struct {
@@ -32,7 +32,7 @@ func (f *match) Todo(badGyus ...string) (str string, err error) {
 	if err != nil {
 		return str, err
 	}
-	result := make([]string, amount+1, amount+1)
+	result := make([]string, amount + 1, amount + 1)
 	for i := 0; i < amount; i++ {
 		str, err := f.footballers.Choose(i, amount)
 		if err != nil {
