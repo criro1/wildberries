@@ -8,53 +8,51 @@ import (
 	mod "github.com/criro1/wildberries/visitor/pkg/models"
 )
 
-// Service interface ...
-type Service interface {
-	SellTo(c *customer) (str string)
-}
-
 // Visitor interface ...
 type Visitor interface {
-	VisitPharmacy(pharmacy, pill string) (str string, err error)
-	VisitMarket(market, goods string) (str string, err error)
-	VisitBarbershop(barbershop, haircut string) (str string, err error)
+	VisitPharmacy(pharmacy string) (str string, err error)
+	VisitMarket(market string) (str string, err error)
+	VisitBarbershop(barbershop string) (str string, err error)
 }
 
 type customer struct {
 	name string
 }
 
-func (c *customer) VisitPharmacy(pharmacy, pill string) (str string, err error) {
-	return c.buyPills(pharmacy, pill)
+// VisitPharmacy return the string with the buying at the pharmacy
+func (c *customer) VisitPharmacy(pharmacy string) (str string, err error) {
+	return c.buyPills(pharmacy)
 }
 
-func (c *customer) VisitMarket(market, goods string) (str string, err error) {
-	return c.buyGoods(market, goods)
+// VisitMarket return the string with the buying at the market
+func (c *customer) VisitMarket(market string) (str string, err error) {
+	return c.buyGoods(market)
 }
 
-func (c *customer) VisitBarbershop(barbershop, haircut string) (str string, err error) {
-	return c.buyHaircut(barbershop, haircut)
+// VisitBarbershop return the string with the buying at the barbershop
+func (c *customer) VisitBarbershop(barbershop string) (str string, err error) {
+	return c.buyHaircut(barbershop)
 }
 
-func (c *customer) buyPills(pharmacy, pill string) (str string, err error) {
-	if pharmacy == "" {
+func (c *customer) buyPills(pharmacy string) (str string, err error) {
+	if pharmacy == mod.EmptyStr {
 		return str, errors.New(mod.BadPharName)
 	}
-	return fmt.Sprintf(mod.CustBuyPills, c.name, pill, pharmacy), nil
+	return fmt.Sprintf(mod.CustBuyPills, c.name, pharmacy), nil
 }
 
-func (c *customer) buyGoods(market, goods string) (str string, err error) {
-	if market == "" {
+func (c *customer) buyGoods(market string) (str string, err error) {
+	if market == mod.EmptyStr {
 		return str, errors.New(mod.BadMarkName)
 	}
-	return fmt.Sprintf(mod.CustByuGoods, c.name, goods, market), nil
+	return fmt.Sprintf(mod.CustByuGoods, c.name, market), nil
 }
 
-func (c *customer) buyHaircut(barbershop, haircut string) (str string, err error) {
-	if barbershop == "" {
+func (c *customer) buyHaircut(barbershop string) (str string, err error) {
+	if barbershop == mod.EmptyStr {
 		return str, errors.New(mod.BadBarbName)
 	}
-	return fmt.Sprintf(mod.CustGetHaircut, c.name, haircut, barbershop), nil
+	return fmt.Sprintf(mod.CustGetHaircut, c.name, barbershop), nil
 }
 
 // NewCustomer ...

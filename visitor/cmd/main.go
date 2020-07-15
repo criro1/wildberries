@@ -8,21 +8,31 @@ import (
 	serv "github.com/criro1/wildberries/visitor/pkg/services"
 )
 
+var (
+	expect = "Moscow city buying:\nCustomer Petr got haircut at the barbershop `Y Ludmili`\nCustomer Petr bought goods at the maket `Magnit`\nCustomer Petr bought pills at the pharmacy `36'6`\n"
+	petr = "Petr"
+	moscow = "Moscow"
+	ph36_6 = "36'6"
+	magnit = "Magnit"
+	yLudmili = "Y Ludmili"
+	errorMethod = "Error method DoPurchase"
+	resNotExp = "Error, result != expect"
+	everythingOk = "Everything is OK! The result is:\n\n"
+)
+
 func main() {
-	expect := "Moscow city buying:\nCustomer Petr bought pills paracetamol at the pharmacy `36'6`\nCustomer Petr bought goods cheese, sausages, pasta at the maket `Magnit`\nCustomer Petr got haircut side parted at the barbershop `Y Ludmili`"
+	visitor := vis.NewCustomer(petr)
+	city := serv.NewCity(moscow, ph36_6, magnit, yLudmili)
 
-	visitor := vis.NewCustomer("Petr")
-	city := serv.NewCity("Moscow", "36'6", "Magnit", "Y Ludmili")
-
-	result, err := city.DoPurchase(visitor, "paracetamol", "cheese, sausages, pasta", "side parted")
+	result, err := city.DoPurchase(visitor)
 	if err != nil {
-		fmt.Println("Error method DoPurchase")
+		fmt.Println(errorMethod)
 		return
 	}
 
 	if result != expect {
-		fmt.Println("Error, result != expect")
+		fmt.Println(resNotExp)
 	} else {
-		fmt.Println("Everything is OK! The result is:\n\n" + result)
+		fmt.Print(everythingOk + result)
 	}
 }

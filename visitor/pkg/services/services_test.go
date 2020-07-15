@@ -7,38 +7,34 @@ import (
 	vis "github.com/criro1/wildberries/visitor/pkg"
 )
 
-var (
-	expected = "Madrid city buying:\nCustomer Nickolay bought pills Ibuprofen at the pharmacy `Y doma`\nCustomer Nickolay bought goods shampoo, bread, beer at the maket `Spar`\nCustomer Nickolay got haircut polubox at the barbershop `Viktorya`"
-	VisitPharmacy = "VisitPharmacy"
-	VisitMarket = "VisitMarket"
-	VisitBarbershop = "VisitBarbershop"
-	Madrid = "Madrid"
-	Ydoma = "Y doma"
-	Spar = "Spar"
-	Viktorya = "Viktorya"
-	DoPurchase = "DoPurchase"
-	Ibuprofen = "Ibuprofen"
-	RetPharmacy = "Customer Nickolay bought pills Ibuprofen at the pharmacy `Y doma`\n"
-	Goods = "shampoo, bread, beer"
-	RetMarker = "Customer Nickolay bought goods shampoo, bread, beer at the maket `Spar`\n"
-	Polubox = "polubox"
-	RetBarber = "Customer Nickolay got haircut polubox at the barbershop `Viktorya`"
+const (
+	expected = "Madrid city buying:\nCustomer Nickolay got haircut at the barbershop `Viktorya`\nCustomer Nickolay bought goods at the maket `Spar`\nCustomer Nickolay bought pills at the pharmacy `Y doma`\n"
+	visitPharmacy = "VisitPharmacy"
+	visitMarket = "VisitMarket"
+	visitBarbershop = "VisitBarbershop"
+	madrid = "Madrid"
+	yDoma = "Y doma"
+	spar = "Spar"
+	viktorya = "Viktorya"
+	doPurchase = "DoPurchase"
+	retPharmacy = "Customer Nickolay bought pills at the pharmacy `Y doma`\n"
+	retMarker = "Customer Nickolay bought goods at the maket `Spar`\n"
+	retBarber = "Customer Nickolay got haircut at the barbershop `Viktorya`\n"
+	unexpectedError = "unexpected error:"
 )
 
 func TestDoPurchase(t *testing.T) {
-	t.Run(DoPurchase, func(t *testing.T) {
-		c := NewCity(Madrid, Ydoma, Spar, Viktorya)
+	t.Run(doPurchase, func(t *testing.T) {
 		visMock := new(vis.MockVis)
-		visMock.On(VisitPharmacy, Ydoma, Ibuprofen).Return(RetPharmacy, nil).Once()
-		visMock.On(VisitMarket, Spar, Goods).Return(RetMarker, nil).Once()
-		visMock.On(VisitBarbershop, Viktorya, Polubox).Return(RetBarber, nil).Once()
+
+		visMock.On(visitPharmacy, yDoma).Return(retPharmacy, nil).Once()
+		visMock.On(visitMarket, spar).Return(retMarker, nil).Once()
+		visMock.On(visitBarbershop, viktorya).Return(retBarber, nil).Once()
 		
-		result, err := c.DoPurchase(visMock, Ibuprofen, Goods, Polubox)
+		c := NewCity(madrid, yDoma, spar, viktorya)
+		result, err := c.DoPurchase(visMock)
 
-		// v := vis.NewCustomer("Nickolay")
-		// result, err := c.DoPurchase(v, Ibuprofen, Goods, Polubox)
-
-		assert.NoError(t, err, "unexpected error:", err)
+		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expected, result)
 	})
 }

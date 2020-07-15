@@ -6,19 +6,19 @@ import (
 
 // Visitor interface ...
 type Visitor interface {
-	VisitPharmacy(pharmacy, pill string) (str string, err error)
-	VisitMarket(market, goods string) (str string, err error)
-	VisitBarbershop(barbershop, haircut string) (str string, err error)
+	VisitPharmacy(pharmacy string) (str string, err error)
+	VisitMarket(market string) (str string, err error)
+	VisitBarbershop(barbershop string) (str string, err error)
 }
 
 // Service interface ...
 type Service interface {
-	sellTo(v Visitor, product string) (str string, err error)
+	sellTo(v Visitor) (str string, err error)
 }
 
 // CityInterface ...
 type CityInterface interface {
-	DoPurchase(v Visitor, pill, goods, haircut string) (str string, err error)
+	DoPurchase(v Visitor) (str string, err error)
 }
 
 type city struct {
@@ -38,38 +38,35 @@ type barbershop struct {
 	name string
 }
 
-func (c *city) DoPurchase(v Visitor, pill, goods, haircut string) (str string, err error) {
-	s0, err := c.Serv[0].sellTo(v, pill)
-	if err != nil {
-		return str, err
+// DoPurchase return string with buying from different services of the cuty
+func (c *city) DoPurchase(v Visitor) (str string, err error) {
+	resulst := c.name + mod.CityBuy
+	for _, place := range(c.Serv) {
+		s, err := place.sellTo(v)
+		if err != nil {
+			return str, err
+		}
+		resulst += s
 	}
-	s1, err := c.Serv[1].sellTo(v, goods)
-	if err != nil {
-		return str, err
-	}
-	s2, err := c.Serv[2].sellTo(v, haircut)
-	if err != nil {
-		return str, err
-	}
-	return c.name + mod.CityBuy + s0 + s1 + s2, nil
+	return resulst, nil
 }
 
-func (p *pharmacy) sellTo(v Visitor, product string) (str string, err error) {
-	return v.VisitPharmacy(p.name, product)
+func (p *pharmacy) sellTo(v Visitor) (str string, err error) {
+	return v.VisitPharmacy(p.name)
 }
 
-func (m *market) sellTo(v Visitor, product string) (str string, err error) {
-	return v.VisitMarket(m.name, product)
+func (m *market) sellTo(v Visitor) (str string, err error) {
+	return v.VisitMarket(m.name)
 }
 
-func (b *barbershop) sellTo(v Visitor, product string) (str string, err error) {
-	return v.VisitBarbershop(b.name, product)
+func (b *barbershop) sellTo(v Visitor) (str string, err error) {
+	return v.VisitBarbershop(b.name)
 }
 
 // NewCity ...
 func NewCity(name, phName, mktName, bbspName string) CityInterface {
 	return &city{
 		name: name,
-		Serv: []Service{&pharmacy{phName}, &market{mktName}, &barbershop{bbspName}},
+		Serv: []Service{&barbershop{bbspName}, &market{mktName}, &pharmacy{phName}},
 	}
 }
