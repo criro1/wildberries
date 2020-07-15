@@ -1,4 +1,4 @@
-// testing of package visitor
+// Package main ...
 package main
 
 import (
@@ -8,7 +8,7 @@ import (
 	serv "github.com/criro1/wildberries/visitor/pkg/services"
 )
 
-var (
+const (
 	expect       = "Moscow city buying:\nCustomer Petr got haircut at the barbershop `Y Ludmili`\nCustomer Petr bought goods at the maket `Magnit`\nCustomer Petr bought pills at the pharmacy `36'6`\n"
 	petr         = "Petr"
 	moscow       = "Moscow"
