@@ -1,8 +1,6 @@
 package services
 
 import(
-	// "fmt"
-
 	mod "github.com/criro1/wildberries/visitor/pkg/models"
 )
 
@@ -70,9 +68,6 @@ func(b *barbershop) SellTo(v Visitor, product string) (str string, err error) {
 
 // NewCity ...
 func NewCity(name, phName, mktName, bbspName string) CityInterface {
-	// serv := make([]Service, 3, 3)
-	// serv = append(serv, &pharmacy{phName}, &market{mktName}, &barbershop{bbspName})
-	// fmt.Println(len(serv), cap(serv))
 	return &city{
 		name: name,
 		Serv: []Service{&pharmacy{phName}, &market{mktName}, &barbershop{bbspName}},

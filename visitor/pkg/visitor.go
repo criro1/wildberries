@@ -10,7 +10,7 @@ import (
 
 // Service interface ...
 type Service interface {
-	SellTo(c *customer) string
+	SellTo(c *customer) (str string)
 }
 
 // Visitor interface ...
