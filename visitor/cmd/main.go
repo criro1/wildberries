@@ -9,14 +9,14 @@ import (
 )
 
 var (
-	expect = "Moscow city buying:\nCustomer Petr got haircut at the barbershop `Y Ludmili`\nCustomer Petr bought goods at the maket `Magnit`\nCustomer Petr bought pills at the pharmacy `36'6`\n"
-	petr = "Petr"
-	moscow = "Moscow"
-	ph36_6 = "36'6"
-	magnit = "Magnit"
-	yLudmili = "Y Ludmili"
-	errorMethod = "Error method DoPurchase"
-	resNotExp = "Error, result != expect"
+	expect       = "Moscow city buying:\nCustomer Petr got haircut at the barbershop `Y Ludmili`\nCustomer Petr bought goods at the maket `Magnit`\nCustomer Petr bought pills at the pharmacy `36'6`\n"
+	petr         = "Petr"
+	moscow       = "Moscow"
+	ph36_6       = "36'6"
+	magnit       = "Magnit"
+	yLudmili     = "Y Ludmili"
+	errorMethod  = "Error method DoPurchase"
+	resNotExp    = "Error, result != expect"
 	everythingOk = "Everything is OK! The result is:\n\n"
 )
 

@@ -8,18 +8,18 @@ import (
 )
 
 const (
-	expected = "Madrid city buying:\nCustomer Nickolay got haircut at the barbershop `Viktorya`\nCustomer Nickolay bought goods at the maket `Spar`\nCustomer Nickolay bought pills at the pharmacy `Y doma`\n"
-	visitPharmacy = "VisitPharmacy"
-	visitMarket = "VisitMarket"
+	expected        = "Madrid city buying:\nCustomer Nickolay got haircut at the barbershop `Viktorya`\nCustomer Nickolay bought goods at the maket `Spar`\nCustomer Nickolay bought pills at the pharmacy `Y doma`\n"
+	visitPharmacy   = "VisitPharmacy"
+	visitMarket     = "VisitMarket"
 	visitBarbershop = "VisitBarbershop"
-	madrid = "Madrid"
-	yDoma = "Y doma"
-	spar = "Spar"
-	viktorya = "Viktorya"
-	doPurchase = "DoPurchase"
-	retPharmacy = "Customer Nickolay bought pills at the pharmacy `Y doma`\n"
-	retMarker = "Customer Nickolay bought goods at the maket `Spar`\n"
-	retBarber = "Customer Nickolay got haircut at the barbershop `Viktorya`\n"
+	madrid          = "Madrid"
+	yDoma           = "Y doma"
+	spar            = "Spar"
+	viktorya        = "Viktorya"
+	doPurchase      = "DoPurchase"
+	retPharmacy     = "Customer Nickolay bought pills at the pharmacy `Y doma`\n"
+	retMarker       = "Customer Nickolay bought goods at the maket `Spar`\n"
+	retBarber       = "Customer Nickolay got haircut at the barbershop `Viktorya`\n"
 	unexpectedError = "unexpected error:"
 )
 

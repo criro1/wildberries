@@ -7,19 +7,19 @@ import (
 )
 
 const (
-	unexpectedError  = "unexpected error:"
-	visitPharmacy = "VisitPharmacy"
-	marina = "Marina"
-	stolichki = "Stolichki"
-	expectedPh = "Customer Marina bought pills at the pharmacy `Stolichki`\n"
-	visitMarket = "VisitMarket"
-	anna = "Anna"
-	pyaterochka = "Pyaterochka"
-	expectedMkt = "Customer Anna bought goods at the maket `Pyaterochka`\n"
+	unexpectedError = "unexpected error:"
+	visitPharmacy   = "VisitPharmacy"
+	marina          = "Marina"
+	stolichki       = "Stolichki"
+	expectedPh      = "Customer Marina bought pills at the pharmacy `Stolichki`\n"
+	visitMarket     = "VisitMarket"
+	anna            = "Anna"
+	pyaterochka     = "Pyaterochka"
+	expectedMkt     = "Customer Anna bought goods at the maket `Pyaterochka`\n"
 	visitBarbershop = "VisitBarbershop"
-	ivan = "Ivan Modnichkov"
-	prichaBudetTop = "PrichaBudetTop"
-	expectedBbshop = "Customer Ivan Modnichkov got haircut at the barbershop `PrichaBudetTop`\n"
+	ivan            = "Ivan Modnichkov"
+	prichaBudetTop  = "PrichaBudetTop"
+	expectedBbshop  = "Customer Ivan Modnichkov got haircut at the barbershop `PrichaBudetTop`\n"
 )
 
 func TestVisitPharmacy(t *testing.T) {
