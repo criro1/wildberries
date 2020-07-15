@@ -1,3 +1,4 @@
+// Package referee ...
 package referee
 
 import (

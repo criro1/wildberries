@@ -1,3 +1,4 @@
+// Package footballer ...
 package footballer
 
 import (
@@ -6,32 +7,41 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFootballerGet(t *testing.T) {
-	f := NewFootballer("Varan", "Hazard", "Bale")
+const (
+	varan = "Varan"
+	hazard = "Hazard"
+	bale = "Bale"
+	getQty = "GetQty"
+	expectedQty = 3
+	unexpError = "unexpected error:"
+	expectedChoose = "1 - Varan skips and don't touch the ball\n2 - Hazard skips, but touchs and rolls the ball\n3 - Bale kicks the ball\n"
+	choose = "Choose"
+	errD = "Error:"
+)
 
-	expectedQty := 3
-	t.Run("GetQty", func(t *testing.T) {
+func TestFootballerGet(t *testing.T) {
+	t.Run(getQty, func(t *testing.T) {
+		f := NewFootballer(varan, hazard, bale)
 		resultQty, err := f.GetQty()
-		assert.NoError(t, err, "unexpected error:", err)
+		assert.NoError(t, err, unexpError, err)
 		assert.EqualValues(t, expectedQty, resultQty)
 	})
 }
 
 func TestFootballerChoose(t *testing.T) {
-	f := NewFootballer("Varan", "Hazard", "Bale")
-	expectedChoose := "1 - Varan skips and don't touch the ball\n2 - Hazard skips, but touchs and rolls the ball\n3 - Bale kicks the ball\n"
-	t.Run("Choose", func(t *testing.T) {
+	t.Run(choose, func(t *testing.T) {
+		f := NewFootballer(varan, hazard, bale)
 		resultQty, err := f.GetQty()
 		resultChoose := ""
 		for i := 0; i < 3; i++ {
 			r, err := f.Choose(i, resultQty)
 			if err != nil {
-				t.Error("Error:", err)
+				t.Error(errD, err)
 			}
 			resultChoose += r + "\n"
 		}
 
-		assert.NoError(t, err, "unexpected error:", err)
+		assert.NoError(t, err, unexpError, err)
 		assert.EqualValues(t, expectedChoose, resultChoose)
 	})
 }

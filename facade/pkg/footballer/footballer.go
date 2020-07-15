@@ -2,8 +2,8 @@
 package footballer
 
 import (
-	"errors"
 	"fmt"
+	"errors"
 
 	"github.com/criro1/wildberries/facade/pkg/models"
 )
