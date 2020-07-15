@@ -10,16 +10,16 @@ import (
 const (
 	showYellowCard = "ShowYellowCard"
 	expectedYellow = "Kassai shows yellow card to Fernandez"
-	kassai = "Kassai"
-	fernandez = "Fernandez"
-	showRedCard = "ShowRedCard"
-	expectedRed = "Kassai shows red card to James Rodriguez"
-	james = "James Rodriguez"
-	unexpError = "unexpected error:"
-	expected = "Referee Kassai shows 2 yellow cards and 1 red cards in this match"
-	statistic = "Statistic"
-	valverde = "Valverde"
-	lucas = "Lucas"
+	kassai         = "Kassai"
+	fernandez      = "Fernandez"
+	showRedCard    = "ShowRedCard"
+	expectedRed    = "Kassai shows red card to James Rodriguez"
+	james          = "James Rodriguez"
+	unexpError     = "unexpected error:"
+	expected       = "Referee Kassai shows 2 yellow cards and 1 red cards in this match"
+	statistic      = "Statistic"
+	valverde       = "Valverde"
+	lucas          = "Lucas"
 )
 
 func TestRefereeYellow(t *testing.T) {
