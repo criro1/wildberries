@@ -4,20 +4,19 @@ package main
 import (
 	"fmt"
 
-	"github.com/criro1/wildberries/visitor/pkg"
-	// "github.com/criro1/wildberries/visitor/pkg/footballer"
-	// "github.com/criro1/wildberries/visitor/pkg/referee"
+	vis "github.com/criro1/wildberries/visitor/pkg"
+	serv "github.com/criro1/wildberries/visitor/pkg/services"
 )
 
 func main() {
-	expect := ""
+	expect := "Moscow city buying:\nCustomer Petr bought pills paracetamol at the pharmacy `36'6`\nCustomer Petr bought goods cheese, sausages, pasta at the maket `Magnit`\nCustomer Petr got haircut side parted at the barbershop `Y Ludmili`"
 
-	// players := footballer.NewFootballer("Ramos", "Modric", "Casemiro", "Kroos")
-	// referee := referee.NewReferee("Scamina", 0, 0)
-	// fk := facade.NewMatch(players, referee)
-	// result, err := fk.Todo("Mascelo", "Carvajal")
+	visitor := vis.NewCustomer("Petr")
+	city := serv.NewCity("Moscow", "36'6", "Magnit", "Y Ludmili")
+
+	result, err := city.DoPurchase(visitor, "paracetamol", "cheese, sausages, pasta", "side parted")
 	if err != nil {
-		fmt.Println("Error method Todo")
+		fmt.Println("Error method DoPurchase")
 		return
 	}
 
