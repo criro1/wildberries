@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	unexpectedError = "unexpected error:"
+	unexpectedError  = "unexpected error:"
 	visitPharmacy = "VisitPharmacy"
 	marina = "Marina"
 	stolichki = "Stolichki"
