@@ -1,6 +1,6 @@
 package services
 
-import(
+import (
 	mod "github.com/criro1/wildberries/visitor/pkg/models"
 )
 
@@ -13,7 +13,7 @@ type Visitor interface {
 
 // Service interface ...
 type Service interface {
-	SellTo(v Visitor, product string) (str string, err error)
+	sellTo(v Visitor, product string) (str string, err error)
 }
 
 // CityInterface ...
@@ -38,31 +38,31 @@ type barbershop struct {
 	name string
 }
 
-func(c *city) DoPurchase(v Visitor, pill, goods, haircut string) (str string, err error) {
-	s0, err := c.Serv[0].SellTo(v, pill)
+func (c *city) DoPurchase(v Visitor, pill, goods, haircut string) (str string, err error) {
+	s0, err := c.Serv[0].sellTo(v, pill)
 	if err != nil {
 		return str, err
 	}
-	s1, err := c.Serv[1].SellTo(v, goods)
+	s1, err := c.Serv[1].sellTo(v, goods)
 	if err != nil {
 		return str, err
 	}
-	s2, err := c.Serv[2].SellTo(v, haircut)
+	s2, err := c.Serv[2].sellTo(v, haircut)
 	if err != nil {
 		return str, err
 	}
 	return c.name + mod.CityBuy + s0 + s1 + s2, nil
 }
 
-func(p *pharmacy) SellTo(v Visitor, product string) (str string, err error) {
+func (p *pharmacy) sellTo(v Visitor, product string) (str string, err error) {
 	return v.VisitPharmacy(p.name, product)
 }
 
-func(m *market) SellTo(v Visitor, product string) (str string, err error) {
+func (m *market) sellTo(v Visitor, product string) (str string, err error) {
 	return v.VisitMarket(m.name, product)
 }
 
-func(b *barbershop) SellTo(v Visitor, product string) (str string, err error) {
+func (b *barbershop) sellTo(v Visitor, product string) (str string, err error) {
 	return v.VisitBarbershop(b.name, product)
 }
 
