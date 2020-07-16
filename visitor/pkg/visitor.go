@@ -2,17 +2,14 @@
 package visitor
 
 import (
-	"errors"
-	"fmt"
-
-	mod "github.com/criro1/wildberries/visitor/pkg/models"
+	serv "github.com/criro1/wildberries/visitor/pkg/services"
 )
 
-// Visitor interface ...
+// Visitor ...
 type Visitor interface {
-	VisitPharmacy(pharmacy string) (str string, err error)
-	VisitMarket(market string) (str string, err error)
-	VisitBarbershop(barbershop string) (str string, err error)
+	VisitPharmacy(p *(serv.Pharmacy)) (str string, err error)
+	VisitMarket(m *(serv.Market)) (str string, err error)
+	VisitBarbershop(b *(serv.Barbershop)) (str string, err error)
 }
 
 type customer struct {
@@ -20,39 +17,18 @@ type customer struct {
 }
 
 // VisitPharmacy return the string with the buying at the pharmacy
-func (c *customer) VisitPharmacy(pharmacy string) (str string, err error) {
-	return c.buyPills(pharmacy)
+func (c *customer) VisitPharmacy(p *(serv.Pharmacy)) (str string, err error) {
+	return p.BuyPills(c.name)
 }
 
 // VisitMarket return the string with the buying at the market
-func (c *customer) VisitMarket(market string) (str string, err error) {
-	return c.buyGoods(market)
+func (c *customer) VisitMarket(m *(serv.Market)) (str string, err error) {
+	return m.BuyGoods(c.name)
 }
 
 // VisitBarbershop return the string with the buying at the barbershop
-func (c *customer) VisitBarbershop(barbershop string) (str string, err error) {
-	return c.buyHaircut(barbershop)
-}
-
-func (c *customer) buyPills(pharmacy string) (str string, err error) {
-	if pharmacy == mod.EmptyStr {
-		return str, errors.New(mod.BadPharName)
-	}
-	return fmt.Sprintf(mod.CustBuyPills, c.name, pharmacy), nil
-}
-
-func (c *customer) buyGoods(market string) (str string, err error) {
-	if market == mod.EmptyStr {
-		return str, errors.New(mod.BadMarkName)
-	}
-	return fmt.Sprintf(mod.CustByuGoods, c.name, market), nil
-}
-
-func (c *customer) buyHaircut(barbershop string) (str string, err error) {
-	if barbershop == mod.EmptyStr {
-		return str, errors.New(mod.BadBarbName)
-	}
-	return fmt.Sprintf(mod.CustGetHaircut, c.name, barbershop), nil
+func (c *customer) VisitBarbershop(b *(serv.Barbershop)) (str string, err error) {
+	return b.BuyHaircut(c.name)
 }
 
 // NewCustomer ...

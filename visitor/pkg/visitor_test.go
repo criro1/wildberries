@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	serv "github.com/criro1/wildberries/visitor/pkg/services"
 )
 
 const (
@@ -26,7 +27,7 @@ const (
 func TestVisitPharmacy(t *testing.T) {
 	t.Run(visitPharmacy, func(t *testing.T) {
 		c := NewCustomer(marina)
-		resultPh, err := c.VisitPharmacy(stolichki)
+		resultPh, err := c.VisitPharmacy(&serv.Pharmacy{Name: stolichki})
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedPh, resultPh)
 	})
@@ -35,7 +36,7 @@ func TestVisitPharmacy(t *testing.T) {
 func TestVisitMarket(t *testing.T) {
 	t.Run(visitMarket, func(t *testing.T) {
 		c := NewCustomer(anna)
-		resultMkt, err := c.VisitMarket(pyaterochka)
+		resultMkt, err := c.VisitMarket(&serv.Market{Name: pyaterochka})
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedMkt, resultMkt)
 	})
@@ -44,7 +45,7 @@ func TestVisitMarket(t *testing.T) {
 func TestVisitBarbershop(t *testing.T) {
 	t.Run(visitBarbershop, func(t *testing.T) {
 		c := NewCustomer(ivan)
-		resultBbshop, err := c.VisitBarbershop(prichaBudetTop)
+		resultBbshop, err := c.VisitBarbershop(&serv.Barbershop{Name: prichaBudetTop})
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedBbshop, resultBbshop)
 	})
