@@ -1,5 +1,5 @@
-// Package services ...
-package services
+// Package city ...
+package city
 
 import (
 	"testing"

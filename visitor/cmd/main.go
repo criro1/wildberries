@@ -5,7 +5,10 @@ import (
 	"fmt"
 
 	vis "github.com/criro1/wildberries/visitor/pkg"
-	serv "github.com/criro1/wildberries/visitor/pkg/services"
+	serv "github.com/criro1/wildberries/visitor/pkg/city"
+	"github.com/criro1/wildberries/visitor/pkg/city/pharmacy"
+	"github.com/criro1/wildberries/visitor/pkg/city/market"
+	"github.com/criro1/wildberries/visitor/pkg/city/barber"
 )
 
 const (
@@ -22,7 +25,7 @@ const (
 
 func main() {
 	visitor := vis.NewCustomer(petr)
-	city := serv.NewCity(moscow, ph36_6, magnit, yLudmili)
+	city := serv.NewCity(moscow, pharmacy.NewPharmacy(ph36_6), market.NewMarket(magnit), barber.NewBarbershop(yLudmili))
 
 	result, err := city.DoPurchase(visitor)
 	if err != nil {
