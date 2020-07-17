@@ -5,9 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	pharmacy "github.com/criro1/wildberries/visitor/pkg/pharmacy"
-	market "github.com/criro1/wildberries/visitor/pkg/market"
-	barbershop "github.com/criro1/wildberries/visitor/pkg/barbershop"
+	"github.com/criro1/wildberries/visitor/pkg/city"
 )
 
 const (

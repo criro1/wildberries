@@ -5,10 +5,10 @@ import (
 	"fmt"
 
 	vis "github.com/criro1/wildberries/visitor/pkg"
-	serv "github.com/criro1/wildberries/visitor/pkg/city"
-	"github.com/criro1/wildberries/visitor/pkg/city/pharmacy"
-	"github.com/criro1/wildberries/visitor/pkg/city/market"
-	"github.com/criro1/wildberries/visitor/pkg/city/barber"
+	mod "github.com/criro1/wildberries/visitor/pkg/models"
+	pharmacy "github.com/criro1/wildberries/visitor/pkg/pharmacy"
+	market "github.com/criro1/wildberries/visitor/pkg/market"
+	barbershop "github.com/criro1/wildberries/visitor/pkg/barbershop"
 )
 
 const (
@@ -23,15 +23,44 @@ const (
 	everythingOk = "Everything is OK! The result is:\n\n"
 )
 
-func main() {
-	visitor := vis.NewCustomer(petr)
-	city := serv.NewCity(moscow, pharmacy.NewPharmacy(ph36_6), market.NewMarket(magnit), barber.NewBarbershop(yLudmili))
+type visitor interface {
+	VisitPharmacy(p pharmacy.Pharmacy) (str string, err error)
+	VisitMarket(m market.Market) (str string, err error)
+	VisitBarbershop(b barbershop.Barbershop) (str string, err error)
+}
 
-	result, err := city.DoPurchase(visitor)
+type places interface {
+	Accept(v visitor) (str string, err error)
+	Buy(visName string) (str string, err error)
+}
+
+func main() {
+	v := vis.NewCustomer(petr)
+	ph := pharmacy.NewPharmacy(ph36_6)
+	mk := market.NewMarket(magnit)
+	bb := barbershop.NewBarbershop(yLudmili)
+	result := moscow + mod.CityBuy
+	s, err := bb.Accept(v)
 	if err != nil {
-		fmt.Println(errorMethod)
+		fmt.Println("Error barbershop")
 		return
 	}
+	result += s
+
+	s, err = mk.Accept(v)
+	if err != nil {
+		fmt.Println("Error market")
+		return
+	}
+	result += s
+
+	s, err = ph.Accept(v)
+	if err != nil {
+		fmt.Println("Error pharmacy")
+		return
+	}
+	result += s
+
 
 	if result != expect {
 		fmt.Println(resNotExp)

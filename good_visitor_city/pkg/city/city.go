@@ -3,20 +3,20 @@ package city
 
 import (
 	mod "github.com/criro1/wildberries/visitor/pkg/models"
-	"github.com/criro1/wildberries/visitor/pkg/city/pharmacy"
-	"github.com/criro1/wildberries/visitor/pkg/city/market"
-	"github.com/criro1/wildberries/visitor/pkg/city/barber"
-	// vis "github.com/criro1/wildberries/visitor/pkg"
+	// pharmacy "github.com/criro1/wildberries/visitor/pkg/city/pharmacy"
+	// market "github.com/criro1/wildberries/visitor/pkg/city/market"
+	// barbershop "github.com/criro1/wildberries/visitor/pkg/city/barbershop"
 )
 
 type visitor interface {
-	VisitPharmacy(p *(pharmacy.Pharmacy)) (str string, err error)
-	VisitMarket(m *(market.Market)) (str string, err error)
-	VisitBarbershop(b *(barber.Barbershop)) (str string, err error)
+	VisitPharmacy(p Pharmacy) (str string, err error)
+	VisitMarket(m Market) (str string, err error)
+	VisitBarbershop(b Barbershop) (str string, err error)
 }
 
 type serv interface {
 	Accept(v visitor) (str string, err error)
+	Buy(visName string) (str string, err error)
 }
 
 // City ...
