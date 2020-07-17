@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/criro1/wildberries/facade/pkg"
+	"github.com/criro1/wildberries/facade/pkg/facade"
 	"github.com/criro1/wildberries/facade/pkg/footballer"
 	"github.com/criro1/wildberries/facade/pkg/referee"
 )
