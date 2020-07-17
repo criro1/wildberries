@@ -30,7 +30,7 @@ type match struct {
 func (f *match) Todo(badGyus ...string) (str string, err error) {
 	amount, err := f.footballers.GetQty()
 	if err != nil {
-		return str, err
+		return
 	}
 	result := make([]string, amount + 1, amount + 1)
 	for i := 0; i < amount; i++ {
@@ -48,7 +48,7 @@ func (f *match) Todo(badGyus ...string) (str string, err error) {
 	}
 	result[amount], err = f.referee.GetStatistic()
 	if err != nil {
-		return str, err
+		return
 	}
 	return strings.Join(result, "\n"), nil
 }
