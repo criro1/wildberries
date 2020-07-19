@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"errors"
 
-	"github.com/criro1/wildberries/facade/pkg/models"
+	v1 "github.com/criro1/wildberries/facade/api/v1"
 )
 
 // Footballer interface ...
 type Footballer interface {
 	Choose(i, qty int) (str string, err error)
 	GetQty() (x int, err error)
+	Add(p ...string) (err error)
 }
 
 type footballer struct {
@@ -19,59 +20,76 @@ type footballer struct {
 	qty  int
 }
 
+// Add new footballer into slice of their names
+func (f *footballer) Add(p ...string) (err error) {
+	if f.qty < 0 {
+		err = errors.New(v1.BadAmount)
+		return
+	}
+	f.name = append(f.name, p...)
+	f.qty += len(p)
+	return
+}
+
 // GetQty gets qty from struct footballer
 func (f *footballer) GetQty() (x int, err error) {
-	if f.qty <= 0 {
-		return x, errors.New(models.BadAmount)
+	if f.qty < 0 {
+		err = errors.New(v1.BadAmount)
+		return
 	}
-	return f.qty, nil
+	x = f.qty
+	return
 }
 
 // Choose chooses one of privat metods of footballer struct
 func (f *footballer) Choose(i, qty int) (str string, err error) {
 	if i >= qty {
-		return str, errors.New(models.BadAmount)
+		err = errors.New(v1.BadAmount)
+		return
 	}
 	if i < qty-2 {
-		return f.skipWithoutTouch(i, f.name[i])
+		str, err = f.skipWithoutTouch(i, f.name[i])
+		return
 	}
 	if i == qty-2 {
-		return f.skipAndTouch(i, f.name[i])
+		str, err = f.skipAndTouch(i, f.name[i])
+		return
 	}
-	return f.kick(i, f.name[i])
+	str, err = f.kick(i, f.name[i])
+	return
 }
 
 func (f *footballer) kick(i int, name string) (str string, err error) {
 	if i < 0 {
-		return str, errors.New(models.BadAmount)
+		err = errors.New(v1.BadAmount)
+		return
 	}
-	return fmt.Sprintf(models.KickBall, i + 1, name), nil
+	str = fmt.Sprintf(v1.KickBall, i + 1, name)
+	return
 }
 
 func (f *footballer) skipAndTouch(i int, name string) (str string, err error) {
 	if i < 0 {
-		return str, errors.New(models.BadAmount)
+		err = errors.New(v1.BadAmount)
+		return
 	}
-	return fmt.Sprintf(models.SkipAndTouchBall, i + 1, name), nil
+	str = fmt.Sprintf(v1.SkipAndTouchBall, i + 1, name)
+	return
 }
 
 func (f *footballer) skipWithoutTouch(i int, name string) (str string, err error) {
 	if i < 0 {
-		return str, errors.New(models.BadAmount)
+		err = errors.New(v1.BadAmount)
+		return
 	}
-	return fmt.Sprintf(models.WithoutTouch, i + 1, name), nil
+	str = fmt.Sprintf(v1.WithoutTouch, i + 1, name)
+	return
 }
 
 // NewFootballer ...
-func NewFootballer(f ...string) Footballer {
-	l := len(f)
-	footballers := make([]string, l, l)
-	for i, pl := range f {
-		footballers[i] = pl
-	}
-
+func NewFootballer() Footballer {
 	return &footballer{
-		name: footballers,
-		qty:  l,
+		name: []string{},
+		qty:  0,
 	}
 }

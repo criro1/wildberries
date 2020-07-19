@@ -10,22 +10,25 @@ import (
 )
 
 const (
-	expect = "1 - Ramos skips and don't touch the ball\n2 - Modric skips and don't touch the ball\n3 - Casemiro skips, but touchs and rolls the ball\n4 - Kroos kicks the ball\nReferee Scamina shows 2 yellow cards and 0 red cards in this match"
-	resNotExtp = "Error, result != expect"
+	expect       = "1 - Ramos skips and don't touch the ball\n2 - Modric skips and don't touch the ball\n3 - Casemiro skips, but touchs and rolls the ball\n4 - Kroos kicks the ball\nReferee Scamina shows 2 yellow cards and 0 red cards in this match"
+	resNotExtp   = "Error, result != expect"
 	everythingOk = "Everything is OK! The result is:\n\n"
-	errMethod = "Error method Todo"
-	ramos = "Ramos"
-	modric = "Modric"
-	casemiro = "Casemiro"
-	kroos = "Kroos"
-	scamina = "Scamina"
-	marselo = "Mascelo"
-	carvajal = "Carvajal"
+	errMethod    = "Error method Todo"
+	ramos        = "Ramos"
+	modric       = "Modric"
+	casemiro     = "Casemiro"
+	kroos        = "Kroos"
+	scamina      = "Scamina"
+	marselo      = "Mascelo"
+	carvajal     = "Carvajal"
 )
 
 func main() {
-	players := footballer.NewFootballer(ramos, modric, casemiro, kroos)
+	players := footballer.NewFootballer()
+	players.Add(ramos, modric, casemiro, kroos)
+	
 	referee := referee.NewReferee(scamina, 0, 0)
+	
 	fk := facade.NewMatch(players, referee)
 	result, err := fk.Todo(marselo, carvajal)
 	if err != nil {

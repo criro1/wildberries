@@ -8,6 +8,7 @@ import (
 type footballer interface {
 	Choose(i, qty int) (str string, err error)
 	GetQty() (x int, err error)
+	Add(p ...string) (err error)
 }
 
 type referee interface {
@@ -34,23 +35,24 @@ func (f *match) Todo(badGyus ...string) (str string, err error) {
 	}
 	result := make([]string, amount + 1, amount + 1)
 	for i := 0; i < amount; i++ {
-		str, err := f.footballers.Choose(i, amount)
+		str, err = f.footballers.Choose(i, amount)
 		if err != nil {
-			return str, err
+			return
 		}
 		result[i] = str
 	}
 	for _, bg := range badGyus {
-		_, err := f.referee.ShowYellowCard(bg)
+		_, err = f.referee.ShowYellowCard(bg)
 		if err != nil {
-			return str, err
+			return
 		}
 	}
 	result[amount], err = f.referee.GetStatistic()
 	if err != nil {
 		return
 	}
-	return strings.Join(result, "\n"), nil
+	str = strings.Join(result, "\n")
+	return
 }
 
 // NewMatch ...

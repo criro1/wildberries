@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"errors"
 
-	"github.com/criro1/wildberries/facade/pkg/models"
+	v1 "github.com/criro1/wildberries/facade/api/v1"
 )
 
 // Referee interface ...
@@ -24,27 +24,33 @@ type referee struct {
 // GetStatistic shows the statistic of the referee during the match
 func (r *referee) GetStatistic() (str string, err error) {
 	if r.yellowCard < 0 || r.redCard < 0 {
-		return str, errors.New(models.ErrorReferee)
+		err = errors.New(v1.ErrorReferee)
+		return
 	}
-	return fmt.Sprintf(models.Statistic, r.name, r.yellowCard, r.redCard), nil
+	str = fmt.Sprintf(v1.Statistic, r.name, r.yellowCard, r.redCard)
+	return
 }
 
 // ShowYellowCard add the amount of yellow cards to referee and return the string with footballer, who was shown the card
 func (r *referee) ShowYellowCard(player string) (str string, err error) {
 	if r.yellowCard < 0 {
-		return str, errors.New(models.ErrorReferee)
+		err = errors.New(v1.ErrorReferee)
+		return
 	}
 	r.yellowCard++
-	return fmt.Sprintf(models.YellowCard, r.name, player), nil
+	str = fmt.Sprintf(v1.YellowCard, r.name, player)
+	return
 }
 
 // ShowRedCard add the amount of red cards to referee and return the string with footballer, who was shown the card
 func (r *referee) ShowRedCard(player string) (str string, err error) {
 	if r.redCard < 0 {
-		return str, errors.New(models.ErrorReferee)
+		err = errors.New(v1.ErrorReferee)
+		return
 	}
 	r.redCard++
-	return fmt.Sprintf(models.RedCard, r.name, player), nil
+	str = fmt.Sprintf(v1.RedCard, r.name, player)
+	return
 }
 
 // NewReferee ...
