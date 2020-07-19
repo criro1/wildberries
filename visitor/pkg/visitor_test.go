@@ -52,3 +52,4 @@ func TestVisitBarbershop(t *testing.T) {
 		assert.EqualValues(t, expectedBbshop, resultBbshop)
 	})
 }
+ 
