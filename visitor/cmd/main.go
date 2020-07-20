@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 
-	vis "github.com/criro1/wildberries/visitor/pkg"
+	vis "github.com/criro1/wildberries/visitor/pkg/visitor"
 	pharmacy "github.com/criro1/wildberries/visitor/pkg/pharmacy"
 	market "github.com/criro1/wildberries/visitor/pkg/market"
 	barbershop "github.com/criro1/wildberries/visitor/pkg/barbershop"
