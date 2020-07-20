@@ -1,11 +1,11 @@
-// Package city ...
-package city
+// Package market ...
+package market
 
 import (
 	"fmt"
 	"errors"
 
-	mod "github.com/criro1/wildberries/visitor/pkg/models"
+	"github.com/criro1/wildberries/visitor/pkg/api/v1"
 )
 
 type visitor interface {
@@ -15,7 +15,7 @@ type visitor interface {
 // Market ...
 type Market interface {
 	Accept(v visitor) (str string, err error)
-	Buy(visName string) (str string, err error)
+	BuyGoods(visName string) (str string, err error)
 }
 
 type market struct {
@@ -27,11 +27,13 @@ func (m *market) Accept(v visitor) (str string, err error) {
 }
 
 // BuyGoods return the string with name of customer and market's name
-func (m *market) Buy(visName string) (str string, err error) {
-	if m.name == mod.EmptyStr {
-		return str, errors.New(mod.BadPharName)
+func (m *market) BuyGoods(visName string) (str string, err error) {
+	if m.name == v1.EmptyStr {
+		err = errors.New(v1.BadPharName)
+		return
 	}
-	return fmt.Sprintf(mod.CustByuGoods, visName, m.name), nil
+	str = fmt.Sprintf(v1.CustByuGoods, visName, m.name)
+	return
 }
 
 // NewMarket ...

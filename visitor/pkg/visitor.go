@@ -20,17 +20,20 @@ type customer struct {
 
 // VisitPharmacy return the string with the buying at the pharmacy
 func (c *customer) VisitPharmacy(p  pharmacy.Pharmacy) (str string, err error) {
-	return p.Buy(c.name)
+	str, err = p.BuyPills(c.name)
+	return
 }
 
 // VisitMarket return the string with the buying at the market
 func (c *customer) VisitMarket(m market.Market) (str string, err error) {
-	return m.Buy(c.name)
+	str, err = m.BuyGoods(c.name)
+	return
 }
 
 // VisitBarbershop return the string with the buying at the barbershop
 func (c *customer) VisitBarbershop(b barbershop.Barbershop) (str string, err error) {
-	return b.Buy(c.name)
+	str, err = b.BuyHaircut(c.name)
+	return
 }
 
 // NewCustomer ...

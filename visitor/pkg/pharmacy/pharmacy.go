@@ -1,10 +1,11 @@
+// Package pharmacy ...
 package pharmacy
 
 import (
 	"fmt"
 	"errors"
 
-	mod "github.com/criro1/wildberries/visitor/pkg/models"
+	"github.com/criro1/wildberries/visitor/pkg/api/v1"
 )
 
 type visitor interface {
@@ -14,7 +15,7 @@ type visitor interface {
 // Pharmacy ...
 type Pharmacy interface {
 	Accept(v visitor) (str string, err error)
-	Buy(visName string) (str string, err error)
+	BuyPills(visName string) (str string, err error)
 }
 
 type pharmacy struct {
@@ -27,11 +28,13 @@ func (p *pharmacy) Accept(v visitor) (str string, err error) {
 }
 
 // BuyPills return the string with name of customer and market's name
-func (p *pharmacy) Buy(visName string) (str string, err error) {
-	if p.name == mod.EmptyStr {
-		return str, errors.New(mod.BadPharName)
+func (p *pharmacy) BuyPills(visName string) (str string, err error) {
+	if p.name == v1.EmptyStr {
+		err = errors.New(v1.BadPharName)
+		return
 	}
-	return fmt.Sprintf(mod.CustBuyPills, visName, p.name), nil
+	str = fmt.Sprintf(v1.CustBuyPills, visName, p.name)
+	return
 }
 
 // NewPharmacy ...

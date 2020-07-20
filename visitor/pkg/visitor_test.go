@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	pharmacy "github.com/criro1/wildberries/visitor/pkg/pharmacy"
-	market "github.com/criro1/wildberries/visitor/pkg/market"
-	barbershop "github.com/criro1/wildberries/visitor/pkg/barbershop"
+	"github.com/criro1/wildberries/visitor/pkg/pharmacy"
+	"github.com/criro1/wildberries/visitor/pkg/market"
+	"github.com/criro1/wildberries/visitor/pkg/barbershop"
 )
 
 const (
@@ -19,7 +19,7 @@ const (
 	visitMarket     = "VisitMarket"
 	anna            = "Anna"
 	pyaterochka     = "Pyaterochka"
-	expectedMkt     = "Customer Anna bought goods at the maket `Pyaterochka`\n"
+	expectedMkt     = "Customer Anna bought goods at the market `Pyaterochka`\n"
 	visitBarbershop = "VisitBarbershop"
 	ivan            = "Ivan Modnichkov"
 	prichaBudetTop  = "PrichaBudetTop"
@@ -29,7 +29,7 @@ const (
 func TestVisitPharmacy(t *testing.T) {
 	t.Run(visitPharmacy, func(t *testing.T) {
 		c := NewCustomer(marina)
-		resultPh, err := c.VisitPharmacy(city.NewPharmacy(stolichki))
+		resultPh, err := c.VisitPharmacy(pharmacy.NewPharmacy(stolichki))
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedPh, resultPh)
 	})
@@ -38,7 +38,7 @@ func TestVisitPharmacy(t *testing.T) {
 func TestVisitMarket(t *testing.T) {
 	t.Run(visitMarket, func(t *testing.T) {
 		c := NewCustomer(anna)
-		resultMkt, err := c.VisitMarket(city.NewMarket(pyaterochka))
+		resultMkt, err := c.VisitMarket(market.NewMarket(pyaterochka))
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedMkt, resultMkt)
 	})
@@ -47,7 +47,7 @@ func TestVisitMarket(t *testing.T) {
 func TestVisitBarbershop(t *testing.T) {
 	t.Run(visitBarbershop, func(t *testing.T) {
 		c := NewCustomer(ivan)
-		resultBbshop, err := c.VisitBarbershop(city.NewBarbershop(prichaBudetTop))
+		resultBbshop, err := c.VisitBarbershop(barbershop.NewBarbershop(prichaBudetTop))
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedBbshop, resultBbshop)
 	})
