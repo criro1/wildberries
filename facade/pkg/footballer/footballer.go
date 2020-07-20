@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"errors"
 
-	v1 "github.com/criro1/wildberries/facade/api/v1"
+	v1 "github.com/criro1/wildberries/facade/pkg/api/v1"
 )
 
 // Footballer interface ...
