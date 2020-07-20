@@ -3,7 +3,7 @@ package invoker
 
 import (
 	"errors"
-	"github.com/criro1/wildberries/command/api/v1"
+	"github.com/criro1/wildberries/command/pkg/api/v1"
 )
 
 type command interface {
