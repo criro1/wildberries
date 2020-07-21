@@ -2,9 +2,13 @@
 package facade
 
 import (
+	"fmt"
 	"strings"
 )
 
+const (
+	red = "Footballer %s got red card"
+)
 type footballer interface {
 	Choose(i, qty int) (str string, err error)
 	GetQty() (x int, err error)
@@ -12,8 +16,7 @@ type footballer interface {
 }
 
 type referee interface {
-	ShowYellowCard(player string) (str string, err error)
-	ShowRedCard(player string) (str string, err error)
+	ShowCard(player string, yellow bool) (str string, err error)
 	GetStatistic() (str string, err error)
 }
 
@@ -28,30 +31,58 @@ type match struct {
 }
 
 // Todo return the string with all motions of the match
-func (f *match) Todo(badGyus ...string) (str string, err error) {
-	amount, err := f.footballers.GetQty()
+func (m *match) Todo(badGyus ...string) (str string, err error) {
+	amount, err := m.footballers.GetQty()
 	if err != nil {
 		return
 	}
-	result := make([]string, amount + 1, amount + 1)
+	result := make([]string, amount + 1)
 	for i := 0; i < amount; i++ {
-		str, err = f.footballers.Choose(i, amount)
-		if err != nil {
+		s, errNew := m.footballers.Choose(i, amount)
+		if errNew != nil {
+			err = errNew
 			return
 		}
-		result[i] = str
+		result[i] = s
 	}
+
+	mp := make(map[string]int, len(badGyus))
 	for _, bg := range badGyus {
-		_, err = f.referee.ShowYellowCard(bg)
-		if err != nil {
-			return
+		if val, ok := mp[bg]; !ok {
+			_, errNew := m.referee.ShowCard(bg, true)
+			if errNew != nil {
+				err = errNew
+				return
+			}
+			mp[bg] = 1
+		} else {
+			if val == 1 {
+				_, errNew := m.referee.ShowCard(bg, true)
+				if errNew != nil {
+					err = errNew
+					return
+				}
+				_, errNew = m.referee.ShowCard(bg, false)
+				if errNew != nil {
+					err = errNew
+					return
+				}
+				mp[bg] = 2
+			}
 		}
 	}
-	result[amount], err = f.referee.GetStatistic()
-	if err != nil {
+	s, errNew := m.referee.GetStatistic()
+	if errNew != nil {
+		err = errNew
 		return
 	}
-	str = strings.Join(result, "\n")
+	str = strings.Join(result, "\n") + s + "\n"
+
+	for key, val := range mp {
+		if val == 2 {
+			str += fmt.Sprintf(red, key) + "\n"
+		}
+	} 
 	return
 }
 

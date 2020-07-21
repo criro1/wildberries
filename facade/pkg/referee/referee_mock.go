@@ -16,14 +16,8 @@ func (m *MockRef) GetStatistic() (str string, err error) {
 	return args.Get(0).(string), args.Error(1)
 }
 
-// ShowRedCard ...
-func (m *MockRef) ShowRedCard(player string) (str string, err error) {
-	args := m.Called(player)
-	return args.Get(0).(string), args.Error(1)
-}
-
-// ShowYellowCard ...
-func (m *MockRef) ShowYellowCard(player string) (str string, err error) {
-	args := m.Called(player)
+// ShowCard ...
+func (m *MockRef) ShowCard(player string, yellow bool) (str string, err error) {
+	args := m.Called(player, yellow)
 	return args.Get(0).(string), args.Error(1)
 }

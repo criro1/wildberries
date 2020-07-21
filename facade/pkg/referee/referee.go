@@ -10,8 +10,7 @@ import (
 
 // Referee interface ...
 type Referee interface {
-	ShowYellowCard(player string) (str string, err error)
-	ShowRedCard(player string) (str string, err error)
+	ShowCard(player string, yellow bool) (str string, err error)
 	GetStatistic() (str string, err error)
 }
 
@@ -31,25 +30,22 @@ func (r *referee) GetStatistic() (str string, err error) {
 	return
 }
 
-// ShowYellowCard add the amount of yellow cards to referee and return the string with footballer, who was shown the card
-func (r *referee) ShowYellowCard(player string) (str string, err error) {
-	if r.yellowCard < 0 {
+// ShowCard add the amount of cards to referee and return the string with footballer, who was shown the card
+func (r *referee) ShowCard(player string, yellow bool) (str string, err error) {
+	if r.yellowCard < 0 || r.redCard < 0 {
 		err = errors.New(v1.ErrorReferee)
 		return
 	}
-	r.yellowCard++
-	str = fmt.Sprintf(v1.YellowCard, r.name, player)
-	return
-}
-
-// ShowRedCard add the amount of red cards to referee and return the string with footballer, who was shown the card
-func (r *referee) ShowRedCard(player string) (str string, err error) {
-	if r.redCard < 0 {
-		err = errors.New(v1.ErrorReferee)
-		return
+	s := ""
+	switch {
+	case yellow == true:
+		r.yellowCard++
+		s = v1.YellowCard
+	default:
+		r.redCard++
+		s = v1.RedCard
 	}
-	r.redCard++
-	str = fmt.Sprintf(v1.RedCard, r.name, player)
+	str = fmt.Sprintf(s, r.name, player)
 	return
 }
 

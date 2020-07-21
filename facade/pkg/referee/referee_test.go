@@ -8,11 +8,10 @@ import (
 )
 
 const (
-	showYellowCard = "ShowYellowCard"
 	expectedYellow = "Kassai shows yellow card to Fernandez"
 	kassai         = "Kassai"
 	fernandez      = "Fernandez"
-	showRedCard    = "ShowRedCard"
+	showCard       = "ShowCard"
 	expectedRed    = "Kassai shows red card to James Rodriguez"
 	james          = "James Rodriguez"
 	unexpError     = "unexpected error:"
@@ -23,17 +22,17 @@ const (
 )
 
 func TestRefereeYellow(t *testing.T) {
-	t.Run(showYellowCard, func(t *testing.T) {
+	t.Run(showCard, func(t *testing.T) {
 		r := NewReferee(kassai, 0, 0)
-		resultYellow, err := r.ShowYellowCard(fernandez)
+		resultYellow, err := r.ShowCard(fernandez, true)
 		assert.NoError(t, err, unexpError, err)
 		assert.EqualValues(t, expectedYellow, resultYellow)
 	})
 }
 func TestRefereeRed(t *testing.T) {
-	t.Run(showRedCard, func(t *testing.T) {
+	t.Run(showCard, func(t *testing.T) {
 		r := NewReferee(kassai, 0, 0)
-		resultRed, err := r.ShowRedCard(james)
+		resultRed, err := r.ShowCard(james, false)
 		assert.NoError(t, err, unexpError, err)
 		assert.EqualValues(t, expectedRed, resultRed)
 	})
@@ -42,9 +41,9 @@ func TestRefereeRed(t *testing.T) {
 func TestRefereeStat(t *testing.T) {
 	t.Run(statistic, func(t *testing.T) {
 		r := NewReferee(kassai, 0, 0)
-		r.ShowYellowCard(valverde)
-		r.ShowYellowCard(lucas)
-		r.ShowRedCard(james)
+		r.ShowCard(valverde, true)
+		r.ShowCard(lucas, true)
+		r.ShowCard(james, false)
 		result, err := r.GetStatistic()
 		assert.NoError(t, err, unexpError, err)
 		assert.EqualValues(t, expected, result)

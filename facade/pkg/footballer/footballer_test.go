@@ -8,16 +8,16 @@ import (
 )
 
 const (
-	varan = "Varan"
-	hazard = "Hazard"
-	bale = "Bale"
-	getQty = "GetQty"
-	expectedQty = 3
-	unexpError = "unexpected error:"
+	varan          = "Varan"
+	hazard         = "Hazard"
+	bale           = "Bale"
+	getQty         = "GetQty"
+	expectedQty    = 3
+	unexpError     = "unexpected error:"
 	expectedChoose = "1 - Varan skips and don't touch the ball\n2 - Hazard skips, but touchs and rolls the ball\n3 - Bale kicks the ball\n"
-	choose = "Choose"
-	add = "Add"
-	errD = "Error:"
+	choose         = "Choose"
+	add            = "Add"
+	errD           = "Error:"
 )
 
 func TestFootballerAdd(t *testing.T) {

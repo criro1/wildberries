@@ -10,17 +10,20 @@ import (
 )
 
 var (
-	expected       = "1 - Pepe kicks the ball\nReferee Gusev shows 1 yellow cards and 0 red cards in this match"
+	expected       = "1 - Pepe kicks the ball\nReferee Gusev shows 2 yellow cards and 1 red cards in this match\nFootballer Ibrahimovic got red card\n"
 	add            = "Add"
 	getQty         = "GetQty"
 	choose         = "Choose"
 	todo           = "Todo"
 	pepeKick       = "1 - Pepe kicks the ball"
 	showYellowCard = "ShowYellowCard"
+	showRedCard    = "ShowRedCard"
+	showCard       = "ShowCard"
 	ibrahimovic    = "Ibrahimovic"
-	gusevShow      = "Gusev shows yellow card to Ibrahimovic"
+	gusevShowY     = "Gusev shows yellow card to Ibrahimovic"
+	gusevShowR     = "Gusev shows red card to Ibrahimovic"
 	getStatistic   = "GetStatistic"
-	refereeResult  = "Referee Gusev shows 1 yellow cards and 0 red cards in this match"
+	refereeResult  = "Referee Gusev shows 2 yellow cards and 1 red cards in this match"
 	unexpErr       = "unexpected error:"
 )
 
@@ -34,7 +37,8 @@ func TestFacade(t *testing.T) {
 
 		refMock := new(ref.MockRef)
 
-		refMock.On(showYellowCard, ibrahimovic).Return(gusevShow, nil).Once()
+		refMock.On(showCard, ibrahimovic, true).Return(gusevShowY, nil).Twice()
+		refMock.On(showCard, ibrahimovic, false).Return(gusevShowR, nil).Once()
 		refMock.On(getStatistic).Return(refereeResult, nil).Once()
 
 		match := NewMatch(
@@ -42,7 +46,7 @@ func TestFacade(t *testing.T) {
 			refMock,
 		)
 
-		result, err := match.Todo(ibrahimovic)
+		result, err := match.Todo(ibrahimovic, ibrahimovic)
 		assert.NoError(t, err, unexpErr, err)
 		assert.EqualValues(t, expected, result)
 	})
