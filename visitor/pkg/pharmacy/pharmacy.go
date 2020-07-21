@@ -16,10 +16,12 @@ type visitor interface {
 type Pharmacy interface {
 	Accept(v visitor) (str string, err error)
 	BuyPills(visName string) (str string, err error)
+	Masks() (str string, err error)
 }
 
 type pharmacy struct {
 	name string
+	masks bool
 }
 
 // Accept accept the visitor
@@ -27,9 +29,14 @@ func (p *pharmacy) Accept(v visitor) (str string, err error) {
 	return v.VisitPharmacy(p)
 }
 
-
-// здесь надо добавить уникальностый метод и его юзать в VisitMarket
-
+func (p *pharmacy) Masks() (str string, err error) {
+	if p.masks == true {
+		str = v1.YesHave
+	} else {
+		str = v1.UnfDidnt
+	}
+	return
+}
 
 // BuyPills return the string with name of customer and market's name
 func (p *pharmacy) BuyPills(visName string) (str string, err error) {
@@ -42,8 +49,9 @@ func (p *pharmacy) BuyPills(visName string) (str string, err error) {
 }
 
 // NewPharmacy ...
-func NewPharmacy(name string) Pharmacy {
+func NewPharmacy(name string, masks bool) Pharmacy {
 	return &pharmacy{
 		name: name,
+		masks: masks,
 	}
 }

@@ -27,10 +27,6 @@ func (b *barbershop) Accept(v visitor) (str string, err error) {
 	return v.VisitBarbershop(b)
 }
 
-
-// здесь надо добавить уникальностый метод и его юзать в VisitMarket
-
-
 // BuyHaircut return the string with name of customer and haircut's name
 func (b *barbershop) BuyHaircut(visName string) (str string, err error) {
 	if b.name == v1.EmptyStr {

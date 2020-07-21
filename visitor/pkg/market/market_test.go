@@ -15,7 +15,7 @@ const (
 	expected        = "Customer Masha bought goods at the market `Pyaterochka`\n"
 )
 
-func TestAccept(t *testing.T) {
+func TestByu(t *testing.T) {
 	t.Run(buyGoods, func(t *testing.T) {
 		m := NewMarket(pyaterochka)
 		result, err := m.BuyGoods(masha)

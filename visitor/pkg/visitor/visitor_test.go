@@ -13,23 +13,35 @@ import (
 const (
 	unexpectedError = "unexpected error:"
 	visitPharmacy   = "VisitPharmacy"
-	marina          = "Marina"
+	andrey          = "Andrey"
 	stolichki       = "Stolichki"
-	expectedPh      = "Customer Marina bought pills at the pharmacy `Stolichki`\n"
+	expectedPh      = "Andrey wanted to buy masks\nHe asked, if the prahmacy had them\nYes, we have masks\n"
 	visitMarket     = "VisitMarket"
-	anna            = "Anna"
+	nick            = "Nick"
 	pyaterochka     = "Pyaterochka"
-	expectedMkt     = "Customer Anna bought goods at the market `Pyaterochka`\n"
+	expectedMkt     = "Nick got nasty by the seller and his mood dropped\nBecause of this he did not buy anything\n"
 	visitBarbershop = "VisitBarbershop"
 	ivan            = "Ivan Modnichkov"
 	prichaBudetTop  = "PrichaBudetTop"
-	expectedBbshop  = "Customer Ivan Modnichkov got haircut at the barbershop `PrichaBudetTop`\n"
+	expectedBbshop  = "Ivan Modnichkov wanted to make great haircut\nCustomer Ivan Modnichkov got haircut at the barbershop `PrichaBudetTop`\nHis mood became more better\n"
+	getMood         = "GetMood"
+	alex            = "Alex"
+	expGetMood		= 49
 )
+
+func TestGetMood(t *testing.T) {
+t.Run(getMood, func(t *testing.T) {
+	c := NewCustomer(alex, 49)
+	resGetMood, err := c.GetMood()
+	assert.NoError(t, err, unexpectedError, err)
+	assert.EqualValues(t, expGetMood, resGetMood)
+})
+}
 
 func TestVisitPharmacy(t *testing.T) {
 	t.Run(visitPharmacy, func(t *testing.T) {
-		c := NewCustomer(marina)
-		resultPh, err := c.VisitPharmacy(pharmacy.NewPharmacy(stolichki))
+		c := NewCustomer(andrey, 55)
+		resultPh, err := c.VisitPharmacy(pharmacy.NewPharmacy(stolichki, true))
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedPh, resultPh)
 	})
@@ -37,7 +49,7 @@ func TestVisitPharmacy(t *testing.T) {
 
 func TestVisitMarket(t *testing.T) {
 	t.Run(visitMarket, func(t *testing.T) {
-		c := NewCustomer(anna)
+		c := NewCustomer(nick, 80)
 		resultMkt, err := c.VisitMarket(market.NewMarket(pyaterochka))
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedMkt, resultMkt)
@@ -46,10 +58,9 @@ func TestVisitMarket(t *testing.T) {
 
 func TestVisitBarbershop(t *testing.T) {
 	t.Run(visitBarbershop, func(t *testing.T) {
-		c := NewCustomer(ivan)
+		c := NewCustomer(ivan, 73)
 		resultBbshop, err := c.VisitBarbershop(barbershop.NewBarbershop(prichaBudetTop))
 		assert.NoError(t, err, unexpectedError, err)
 		assert.EqualValues(t, expectedBbshop, resultBbshop)
 	})
 }
- 

@@ -15,7 +15,7 @@ const (
 	prichaBudetTop  = "PrichaBudetTop"
 )
 
-func TestAccept(t *testing.T) {
+func TestByu(t *testing.T) {
 	t.Run(buyHaircut, func(t *testing.T) {
 		b := NewBarbershop(prichaBudetTop)
 		result, err := b.BuyHaircut(ivan)

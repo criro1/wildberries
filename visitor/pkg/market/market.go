@@ -27,10 +27,6 @@ func (m *market) Accept(v visitor) (str string, err error) {
 		return v.VisitMarket(m)
 }
 
-
-// здесь надо добавить уникальностый метод и его юзать в VisitMarket
-
-
 // BuyGoods return the string with name of customer and market's name
 func (m *market) BuyGoods(visName string) (str string, err error) {
 	if m.name == v1.EmptyStr {
