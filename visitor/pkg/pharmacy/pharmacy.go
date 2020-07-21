@@ -27,6 +27,10 @@ func (p *pharmacy) Accept(v visitor) (str string, err error) {
 	return v.VisitPharmacy(p)
 }
 
+
+// здесь надо добавить уникальностый метод и его юзать в VisitMarket
+
+
 // BuyPills return the string with name of customer and market's name
 func (p *pharmacy) BuyPills(visName string) (str string, err error) {
 	if p.name == v1.EmptyStr {
