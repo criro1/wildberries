@@ -4,6 +4,7 @@ package facade
 import (
 	"fmt"
 	"strings"
+	"sync"
 )
 
 const (
@@ -46,8 +47,10 @@ func (m *match) Todo(badGyus ...string) (str string, err error) {
 		result[i] = s
 	}
 
+	mu := &sync.Mutex{}
 	mp := make(map[string]int, len(badGyus))
 	for _, bg := range badGyus {
+		mu.Lock()
 		if val, ok := mp[bg]; !ok {
 			_, errNew := m.referee.ShowCard(bg, true)
 			if errNew != nil {
@@ -70,6 +73,7 @@ func (m *match) Todo(badGyus ...string) (str string, err error) {
 				mp[bg] = 2
 			}
 		}
+		mu.Unlock()
 	}
 	s, errNew := m.referee.GetStatistic()
 	if errNew != nil {
