@@ -2,6 +2,7 @@
 package visitor
 
 import (
+	"fmt"
 	"errors"
 
 	"github.com/criro1/wildberries/visitor/pkg/api/v1"
@@ -23,6 +24,7 @@ type customer struct {
 	mood int
 }
 
+// GetMood return the mood from the string
 func (c *customer) GetMood() (num int, err error) {
 	if c.mood < 0 {
 		err = errors.New(v1.BadMood)
@@ -34,37 +36,44 @@ func (c *customer) GetMood() (num int, err error) {
 
 // VisitPharmacy return the string with the buying at the pharmacy
 func (c *customer) VisitPharmacy(p  pharmacy.Pharmacy) (str string, err error) {
-	s := c.name + v1.WantedBuy
-	s += v1.AskedIf
-	strN, errN := p.Masks()
-	if errN != nil {
-		err = errN
+	s := c.name + v1.WantedBuy + v1.AskedIf
+	str, err = p.Masks()
+	if err != nil {
 		return
 	}
-	str = s + strN
+	str = s + str
 	return
 }
 
 // VisitMarket return the string with the buying at the market
 func (c *customer) VisitMarket(m market.Market) (str string, err error) {
-	s := c.name + v1.NastySeller
+	name, err := m.GetName()
+	if err != nil {
+		return
+	}
+	cameras, err := m.ViewCameras()
+	if err != nil {
+		return
+	}
+	s := fmt.Sprintf(v1.LoseSmth, c.name, v1.Keys, name) + cameras + "\n"
+	str = s + v1.DidntFind
 	c.mood -= 20
-	s += v1.BecauseOf
-	str = s
 	return
 }
 
 // VisitBarbershop return the string with the buying at the barbershop
 func (c *customer) VisitBarbershop(b barbershop.Barbershop) (str string, err error) {
 	s := c.name + v1.GreatHaircut
-	strN, errN := b.BuyHaircut(c.name)
-	if errN != nil {
-		err = errN
+	c.mood += 36
+	str1, err := b.SignUp(c.name, 18.40)
+	if err != nil {
 		return
 	}
-	s += strN + v1.MoodBetter
-	c.mood += 36
-	str = s
+	str2, err := b.BuyHaircut(c.name)
+	if err != nil {
+		return
+	}
+	str = s + str1 + str2 + v1.MoodBetter
 	return
 }
 

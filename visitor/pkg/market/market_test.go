@@ -9,17 +9,28 @@ import (
 
 const (
 	unexpectedError = "unexpected error:"
-	buyGoods        = "BuyGoods"
+	viewCameras		= "ViewCameras"
 	masha           = "Masha"
 	pyaterochka     = "Pyaterochka"
-	expected        = "Customer Masha bought goods at the market `Pyaterochka`\n"
+	expectedGetName	= "Pyaterochka"
+	getName			= "GetName"
+	expectedCam		= "One of 5 security guards of the market looked cameras"
 )
 
-func TestByu(t *testing.T) {
-	t.Run(buyGoods, func(t *testing.T) {
-		m := NewMarket(pyaterochka)
-		result, err := m.BuyGoods(masha)
+func TestGetName(t *testing.T) {
+	t.Run(getName, func(t *testing.T) {
+		m := NewMarket(pyaterochka, 3)
+		result, err := m.GetName()
 		assert.NoError(t, err, unexpectedError, err)
-		assert.EqualValues(t, expected, result)
+		assert.EqualValues(t, expectedGetName, result)
+	})
+}
+
+func TestCam(t *testing.T) {
+	t.Run(viewCameras, func(t *testing.T) {
+		m := NewMarket(pyaterochka, 5)
+		result, err := m.ViewCameras()
+		assert.NoError(t, err, unexpectedError, err)
+		assert.EqualValues(t, expectedCam, result)
 	})
 }

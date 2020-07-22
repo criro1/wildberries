@@ -29,6 +29,7 @@ func (p *pharmacy) Accept(v visitor) (str string, err error) {
 	return v.VisitPharmacy(p)
 }
 
+// Masks return the string about presence or absence of the masks
 func (p *pharmacy) Masks() (str string, err error) {
 	if p.masks == true {
 		str = v1.YesHave
