@@ -2,13 +2,12 @@
 package visitor
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/criro1/wildberries/visitor/pkg/api/v1"
-	barbershop "github.com/criro1/wildberries/visitor/pkg/barbershop"
-	market "github.com/criro1/wildberries/visitor/pkg/market"
-	pharmacy "github.com/criro1/wildberries/visitor/pkg/pharmacy"
+	"github.com/criro1/wildberries/visitor/pkg/barbershop"
+	"github.com/criro1/wildberries/visitor/pkg/market"
+	"github.com/criro1/wildberries/visitor/pkg/pharmacy"
 )
 
 // Visitor ...
@@ -16,7 +15,7 @@ type Visitor interface {
 	VisitPharmacy(p pharmacy.Pharmacy) (str string, err error)
 	VisitMarket(m market.Market) (str string, err error)
 	VisitBarbershop(b barbershop.Barbershop) (str string, err error)
-	GetMood() (num int, err error)
+	GetMood() (num int)
 }
 
 type customer struct {
@@ -25,11 +24,7 @@ type customer struct {
 }
 
 // GetMood return the mood from the string
-func (c *customer) GetMood() (num int, err error) {
-	if c.mood < 0 {
-		err = errors.New(v1.BadMood)
-		return
-	}
+func (c *customer) GetMood() (num int) {
 	num = c.mood
 	return
 }
@@ -47,25 +42,21 @@ func (c *customer) VisitPharmacy(p pharmacy.Pharmacy) (str string, err error) {
 
 // VisitMarket return the string with the buying at the market
 func (c *customer) VisitMarket(m market.Market) (str string, err error) {
-	name, err := m.GetName()
-	if err != nil {
-		return
-	}
 	cameras, err := m.ViewCameras()
 	if err != nil {
 		return
 	}
-	s := fmt.Sprintf(v1.LoseSmth, c.name, v1.Keys, name) + cameras + "\n"
+	s := fmt.Sprintf(v1.LoseSmth, c.name, v1.Keys, m.GetName()) + cameras
 	str = s + v1.DidntFind
-	c.mood -= 20
+	c.mood -= v1.MisusMood
 	return
 }
 
 // VisitBarbershop return the string with the buying at the barbershop
 func (c *customer) VisitBarbershop(b barbershop.Barbershop) (str string, err error) {
 	s := c.name + v1.GreatHaircut
-	c.mood += 36
-	str1, err := b.SignUp(c.name, 18.40)
+	c.mood += v1.PlusMood
+	str1, err := b.SignUp(c.name, v1.Time)
 	if err != nil {
 		return
 	}

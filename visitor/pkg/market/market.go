@@ -16,7 +16,7 @@ type visitor interface {
 type Market interface {
 	Accept(v visitor) (str string, err error)
 	ViewCameras() (str string, err error)
-	GetName() (str string, err error)
+	GetName() (str string)
 }
 
 type market struct {
@@ -24,27 +24,23 @@ type market struct {
 	security int
 }
 
+// GetName return name of the struct
+func (m *market) GetName() (str string) {
+	str = m.name
+	return
+}
+
 // Accept accept the visitor
 func (m *market) Accept(v visitor) (str string, err error) {
 	return v.VisitMarket(m)
 }
 
-// GetName return name of the struct
-func (m *market) GetName() (str string, err error) {
-	if m.name == "" {
-		err = errors.New(v1.BadMarkName)
-		return
-	}
-	str = m.name
-	return
-}
-
 // ViewCamereas return the string with information
 func (m *market) ViewCameras() (str string, err error) {
-	if m.security < 1 {
+	if m.security < v1.One {
 		err = errors.New(v1.BadMarkSec)
 	}
-	str = "One of " + strconv.Itoa(m.security) + " security guards of the market looked cameras"
+	str = v1.OneOf + strconv.Itoa(m.security) + v1.LookCam
 	return
 }
 

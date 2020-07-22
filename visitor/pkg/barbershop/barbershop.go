@@ -30,18 +30,19 @@ func (b *barbershop) Accept(v visitor) (str string, err error) {
 }
 
 // SignUp signed up the customer for the haircut on time
+// 0, 20, 9, 0.59 won't be changed, it's working time of the barber
 func (b *barbershop) SignUp(customer string, time float64) (str string, err error) {
 	if time < 0 || int(time) > 20 || int(time) < 9 || time-float64(int(time)) > 0.59 {
 		err = errors.New(v1.BadTime)
 		return
 	}
-	str = fmt.Sprintf("Administrator %s signed up %s at %.2f o'clock\n", b.admin, customer, time)
+	str = fmt.Sprintf(v1.AdmSignUp, b.admin, customer, time)
 	return
 }
 
 // BuyHaircut return the string with name of customer and haircut's name
 func (b *barbershop) BuyHaircut(visName string) (str string, err error) {
-	if b.name == v1.EmptyStr {
+	if b.name == "" {
 		err = errors.New(v1.BadPharName)
 		return
 	}

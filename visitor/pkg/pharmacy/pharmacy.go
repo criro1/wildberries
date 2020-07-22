@@ -41,7 +41,7 @@ func (p *pharmacy) Masks() (str string, err error) {
 
 // BuyPills return the string with name of customer and market's name
 func (p *pharmacy) BuyPills(visName string) (str string, err error) {
-	if p.name == v1.EmptyStr {
+	if p.name == "" {
 		err = errors.New(v1.BadPharName)
 		return
 	}
