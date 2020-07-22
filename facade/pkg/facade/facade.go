@@ -39,45 +39,19 @@ func (m *match) Todo(badGyus ...string) (str string, err error) {
 	}
 	result := make([]string, amount + 1)
 	for i := 0; i < amount; i++ {
-		s, errNew := m.footballers.Choose(i, amount)
-		if errNew != nil {
-			err = errNew
+		str, err = m.footballers.Choose(i, amount)
+		if err != nil {
 			return
 		}
-		result[i] = s
+		result[i] = str
 	}
 
-	mu := &sync.Mutex{}
-	mp := make(map[string]int, len(badGyus))
-	for _, bg := range badGyus {
-		mu.Lock()
-		if val, ok := mp[bg]; !ok {
-			_, errNew := m.referee.ShowCard(bg, true)
-			if errNew != nil {
-				err = errNew
-				return
-			}
-			mp[bg] = 1
-		} else {
-			if val == 1 {
-				_, errNew := m.referee.ShowCard(bg, true)
-				if errNew != nil {
-					err = errNew
-					return
-				}
-				_, errNew = m.referee.ShowCard(bg, false)
-				if errNew != nil {
-					err = errNew
-					return
-				}
-				mp[bg] = 2
-			}
-		}
-		mu.Unlock()
+	mp, err := mapWork(m, badGyus...)
+	if err != nil {
+		return
 	}
-	s, errNew := m.referee.GetStatistic()
-	if errNew != nil {
-		err = errNew
+	s, err := m.referee.GetStatistic()
+	if err != nil {
 		return
 	}
 	str = strings.Join(result, "\n") + s + "\n"
@@ -87,6 +61,35 @@ func (m *match) Todo(badGyus ...string) (str string, err error) {
 			str += fmt.Sprintf(red, key) + "\n"
 		}
 	} 
+	return
+}
+
+func mapWork(m *match, badGyus ...string) (mp map[string]int, err error) {
+	mu := &sync.Mutex{}
+	mp = make(map[string]int, len(badGyus))
+	for _, bg := range badGyus {
+		mu.Lock()
+		if val, ok := mp[bg]; !ok {
+			_, err = m.referee.ShowCard(bg, true)
+			if err != nil {
+				return
+			}
+			mp[bg] = 1
+		} else {
+			if val == 1 {
+				_, err = m.referee.ShowCard(bg, true)
+				if err != nil {
+					return
+				}
+				_, err = m.referee.ShowCard(bg, false)
+				if err != nil {
+					return
+				}
+				mp[bg] = 2
+			}
+		}
+		mu.Unlock()
+	}
 	return
 }
 
