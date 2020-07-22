@@ -2,10 +2,10 @@
 package referee
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 
-	v1 "github.com/criro1/wildberries/facade/pkg/api/v1"
+	"github.com/criro1/wildberries/facade/pkg/api/v1"
 )
 
 // Referee interface ...

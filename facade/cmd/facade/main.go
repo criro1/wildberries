@@ -26,9 +26,9 @@ const (
 func main() {
 	players := footballer.NewFootballer()
 	players.Add(ramos, modric, casemiro, kroos)
-	
+
 	referee := referee.NewReferee(scamina, 0, 0)
-	
+
 	fk := facade.NewMatch(players, referee)
 	result, err := fk.Todo(marselo, carvajal, marselo, marselo)
 	if err != nil {

@@ -7,4 +7,5 @@ const (
 	KickBall         = "%d - %s kicks the ball"
 	SkipAndTouchBall = "%d - %s skips, but touchs and rolls the ball"
 	WithoutTouch     = "%d - %s skips and don't touch the ball"
+	Red              = "Footballer %s got red card\n"
 )

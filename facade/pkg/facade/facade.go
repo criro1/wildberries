@@ -5,11 +5,10 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+
+	"github.com/criro1/wildberries/facade/pkg/api/v1"
 )
 
-const (
-	red = "Footballer %s got red card"
-)
 type footballer interface {
 	Choose(i, qty int) (str string, err error)
 	GetQty() (x int, err error)
@@ -37,7 +36,7 @@ func (m *match) Todo(badGyus ...string) (str string, err error) {
 	if err != nil {
 		return
 	}
-	result := make([]string, amount + 1)
+	result := make([]string, amount+1)
 	for i := 0; i < amount; i++ {
 		str, err = m.footballers.Choose(i, amount)
 		if err != nil {
@@ -46,7 +45,7 @@ func (m *match) Todo(badGyus ...string) (str string, err error) {
 		result[i] = str
 	}
 
-	mp, err := mapWork(m, badGyus...)
+	mp, err := mapWork(m.referee, badGyus...)
 	if err != nil {
 		return
 	}
@@ -54,34 +53,34 @@ func (m *match) Todo(badGyus ...string) (str string, err error) {
 	if err != nil {
 		return
 	}
-	str = strings.Join(result, "\n") + s + "\n"
+	str = strings.Join(result, "\n") + s
 
 	for key, val := range mp {
 		if val == 2 {
-			str += fmt.Sprintf(red, key) + "\n"
+			str += fmt.Sprintf(v1.Red, key)
 		}
-	} 
+	}
 	return
 }
 
-func mapWork(m *match, badGyus ...string) (mp map[string]int, err error) {
+func mapWork(r referee, badGyus ...string) (mp map[string]int, err error) {
 	mu := &sync.Mutex{}
 	mp = make(map[string]int, len(badGyus))
 	for _, bg := range badGyus {
 		mu.Lock()
 		if val, ok := mp[bg]; !ok {
-			_, err = m.referee.ShowCard(bg, true)
+			_, err = r.ShowCard(bg, true)
 			if err != nil {
 				return
 			}
 			mp[bg] = 1
 		} else {
 			if val == 1 {
-				_, err = m.referee.ShowCard(bg, true)
+				_, err = r.ShowCard(bg, true)
 				if err != nil {
 					return
 				}
-				_, err = m.referee.ShowCard(bg, false)
+				_, err = r.ShowCard(bg, false)
 				if err != nil {
 					return
 				}

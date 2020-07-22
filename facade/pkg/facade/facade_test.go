@@ -4,9 +4,10 @@ package facade
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	foot "github.com/criro1/wildberries/facade/pkg/footballer"
 	ref "github.com/criro1/wildberries/facade/pkg/referee"
-	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -23,7 +24,7 @@ var (
 	gusevShowY     = "Gusev shows yellow card to Ibrahimovic"
 	gusevShowR     = "Gusev shows red card to Ibrahimovic"
 	getStatistic   = "GetStatistic"
-	refereeResult  = "Referee Gusev shows 2 yellow cards and 1 red cards in this match"
+	refereeResult  = "Referee Gusev shows 2 yellow cards and 1 red cards in this match\n"
 	unexpErr       = "unexpected error:"
 )
 

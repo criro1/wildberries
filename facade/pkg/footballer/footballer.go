@@ -2,10 +2,10 @@
 package footballer
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 
-	v1 "github.com/criro1/wildberries/facade/pkg/api/v1"
+	"github.com/criro1/wildberries/facade/pkg/api/v1"
 )
 
 // Footballer interface ...
@@ -16,8 +16,8 @@ type Footballer interface {
 }
 
 type footballer struct {
-	name  []string
-	qty   int
+	name []string
+	qty  int
 }
 
 // Add new footballer into slice of their names
@@ -61,14 +61,14 @@ func (f *footballer) action(i int, name, act string) (str string, err error) {
 		err = errors.New(v1.BadAmount)
 		return
 	}
-	str = fmt.Sprintf(act, i + 1, name)
+	str = fmt.Sprintf(act, i+1, name)
 	return
 }
 
 // NewFootballer ...
 func NewFootballer() Footballer {
 	return &footballer{
-		name:  []string{},
-		qty:   0,
+		name: []string{},
+		qty:  0,
 	}
 }

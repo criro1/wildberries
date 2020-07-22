@@ -8,14 +8,14 @@ import (
 )
 
 const (
-	expectedYellow = "Kassai shows yellow card to Fernandez"
+	expectedYellow = "Kassai shows yellow card to Fernandez\n"
 	kassai         = "Kassai"
 	fernandez      = "Fernandez"
 	showCard       = "ShowCard"
-	expectedRed    = "Kassai shows red card to James Rodriguez"
+	expectedRed    = "Kassai shows red card to James Rodriguez\n"
 	james          = "James Rodriguez"
 	unexpError     = "unexpected error:"
-	expected       = "Referee Kassai shows 2 yellow cards and 1 red cards in this match"
+	expected       = "Referee Kassai shows 2 yellow cards and 1 red cards in this match\n"
 	statistic      = "Statistic"
 	valverde       = "Valverde"
 	lucas          = "Lucas"
