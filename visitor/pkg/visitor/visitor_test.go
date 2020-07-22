@@ -4,11 +4,11 @@ package visitor
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+	
 	"github.com/criro1/wildberries/visitor/pkg/barbershop"
 	"github.com/criro1/wildberries/visitor/pkg/market"
 	"github.com/criro1/wildberries/visitor/pkg/pharmacy"
-
-	"github.com/stretchr/testify/assert"
 )
 
 const (
