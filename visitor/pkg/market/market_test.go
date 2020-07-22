@@ -9,12 +9,12 @@ import (
 
 const (
 	unexpectedError = "unexpected error:"
-	viewCameras		= "ViewCameras"
+	viewCameras     = "ViewCameras"
 	masha           = "Masha"
 	pyaterochka     = "Pyaterochka"
-	expectedGetName	= "Pyaterochka"
-	getName			= "GetName"
-	expectedCam		= "One of 5 security guards of the market looked cameras"
+	expectedGetName = "Pyaterochka"
+	getName         = "GetName"
+	expectedCam     = "One of 5 security guards of the market looked cameras"
 )
 
 func TestGetName(t *testing.T) {

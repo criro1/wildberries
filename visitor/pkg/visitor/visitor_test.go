@@ -4,10 +4,10 @@ package visitor
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-	"github.com/criro1/wildberries/visitor/pkg/pharmacy"
-	"github.com/criro1/wildberries/visitor/pkg/market"
 	"github.com/criro1/wildberries/visitor/pkg/barbershop"
+	"github.com/criro1/wildberries/visitor/pkg/market"
+	"github.com/criro1/wildberries/visitor/pkg/pharmacy"
+	"github.com/stretchr/testify/assert"
 )
 
 const (
@@ -26,17 +26,17 @@ const (
 	expectedBbshop  = "Ivan Modnichkov wanted to make great haircut.He phone to barber\nAdministrator Victorya signed up Ivan Modnichkov at 18.40 o'clock\nCustomer Ivan Modnichkov got haircut at the barbershop `PrichaBudetTop`\nHis mood became more better\n"
 	getMood         = "GetMood"
 	alex            = "Alex"
-	vika			= "Victorya"
-	expGetMood		= 49
+	vika            = "Victorya"
+	expGetMood      = 49
 )
 
 func TestGetMood(t *testing.T) {
-t.Run(getMood, func(t *testing.T) {
-	c := NewCustomer(alex, 49)
-	resGetMood, err := c.GetMood()
-	assert.NoError(t, err, unexpectedError, err)
-	assert.EqualValues(t, expGetMood, resGetMood)
-})
+	t.Run(getMood, func(t *testing.T) {
+		c := NewCustomer(alex, 49)
+		resGetMood, err := c.GetMood()
+		assert.NoError(t, err, unexpectedError, err)
+		assert.EqualValues(t, expGetMood, resGetMood)
+	})
 }
 
 func TestVisitPharmacy(t *testing.T) {

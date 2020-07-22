@@ -20,17 +20,17 @@ type Market interface {
 }
 
 type market struct {
-	name string
+	name     string
 	security int
 }
 
 // Accept accept the visitor
 func (m *market) Accept(v visitor) (str string, err error) {
-		return v.VisitMarket(m)
+	return v.VisitMarket(m)
 }
 
 // GetName return name of the struct
-func(m *market) GetName() (str string, err error) {
+func (m *market) GetName() (str string, err error) {
 	if m.name == "" {
 		err = errors.New(v1.BadMarkName)
 		return
@@ -51,7 +51,7 @@ func (m *market) ViewCameras() (str string, err error) {
 // NewMarket ...
 func NewMarket(name string, security int) Market {
 	return &market{
-		name: name,
+		name:     name,
 		security: security,
 	}
 }

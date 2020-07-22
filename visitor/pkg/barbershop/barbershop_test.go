@@ -13,11 +13,11 @@ const (
 	buyHaircut      = "BuyHaircut"
 	ivan            = "Ivan Modnichkov"
 	prichaBudetTop  = "PrichaBudetTop"
-	admin			= "Anna"
-	singUp 			= "SingUp"
-	bob				= "Bob"
-	time 			= 20.05
-	expectedSingUp	= "Administrator Anna signed up Bob at 20.05 o'clock\n"
+	admin           = "Anna"
+	singUp          = "SingUp"
+	bob             = "Bob"
+	time            = 20.05
+	expectedSingUp  = "Administrator Anna signed up Bob at 20.05 o'clock\n"
 )
 
 func TestSignUp(t *testing.T) {

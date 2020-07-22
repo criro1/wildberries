@@ -2,8 +2,8 @@
 package barbershop
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 
 	"github.com/criro1/wildberries/visitor/pkg/api/v1"
 )
@@ -20,7 +20,7 @@ type Barbershop interface {
 }
 
 type barbershop struct {
-	name string
+	name  string
 	admin string
 }
 
@@ -31,7 +31,7 @@ func (b *barbershop) Accept(v visitor) (str string, err error) {
 
 // SignUp signed up the customer for the haircut on time
 func (b *barbershop) SignUp(customer string, time float64) (str string, err error) {
-	if time < 0 || int(time) > 20 || int(time) < 9 || time - float64(int(time)) > 0.59 {
+	if time < 0 || int(time) > 20 || int(time) < 9 || time-float64(int(time)) > 0.59 {
 		err = errors.New(v1.BadTime)
 		return
 	}
@@ -52,7 +52,7 @@ func (b *barbershop) BuyHaircut(visName string) (str string, err error) {
 // NewBarbershop ...
 func NewBarbershop(name, admin string) Barbershop {
 	return &barbershop{
-		name: name,
+		name:  name,
 		admin: admin,
 	}
 }

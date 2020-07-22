@@ -2,8 +2,8 @@
 package pharmacy
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 
 	"github.com/criro1/wildberries/visitor/pkg/api/v1"
 )
@@ -20,7 +20,7 @@ type Pharmacy interface {
 }
 
 type pharmacy struct {
-	name string
+	name  string
 	masks bool
 }
 
@@ -52,7 +52,7 @@ func (p *pharmacy) BuyPills(visName string) (str string, err error) {
 // NewPharmacy ...
 func NewPharmacy(name string, masks bool) Pharmacy {
 	return &pharmacy{
-		name: name,
+		name:  name,
 		masks: masks,
 	}
 }

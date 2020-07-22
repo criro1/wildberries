@@ -2,13 +2,13 @@
 package visitor
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 
 	"github.com/criro1/wildberries/visitor/pkg/api/v1"
-	pharmacy "github.com/criro1/wildberries/visitor/pkg/pharmacy"
-	market "github.com/criro1/wildberries/visitor/pkg/market"
 	barbershop "github.com/criro1/wildberries/visitor/pkg/barbershop"
+	market "github.com/criro1/wildberries/visitor/pkg/market"
+	pharmacy "github.com/criro1/wildberries/visitor/pkg/pharmacy"
 )
 
 // Visitor ...
@@ -35,7 +35,7 @@ func (c *customer) GetMood() (num int, err error) {
 }
 
 // VisitPharmacy return the string with the buying at the pharmacy
-func (c *customer) VisitPharmacy(p  pharmacy.Pharmacy) (str string, err error) {
+func (c *customer) VisitPharmacy(p pharmacy.Pharmacy) (str string, err error) {
 	s := c.name + v1.WantedBuy + v1.AskedIf
 	str, err = p.Masks()
 	if err != nil {

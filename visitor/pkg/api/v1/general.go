@@ -12,5 +12,5 @@ const (
 	MoodBetter   = "His mood became more better\n"
 	BadMood      = "Bad mood"
 	Keys         = "keys"
-	BadTime		 = "Bad Time. We don't work at this time"
+	BadTime      = "Bad Time. We don't work at this time"
 )
