@@ -7,6 +7,7 @@ import (
 	"github.com/criro1/wildberries/visitor/pkg/barbershop"
 	"github.com/criro1/wildberries/visitor/pkg/market"
 	"github.com/criro1/wildberries/visitor/pkg/pharmacy"
+
 	"github.com/stretchr/testify/assert"
 )
 
