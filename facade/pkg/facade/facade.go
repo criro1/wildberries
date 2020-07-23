@@ -67,13 +67,14 @@ func mapWork(r referee, badGyus ...string) (mp map[string]int, err error) {
 	mu := &sync.Mutex{}
 	mp = make(map[string]int, len(badGyus))
 	for _, bg := range badGyus {
-		mu.Lock()
 		if val, ok := mp[bg]; !ok {
 			_, err = r.ShowCard(bg, true)
 			if err != nil {
 				return
 			}
+			mu.Lock()
 			mp[bg] = 1
+			mu.Unlock()
 		} else {
 			if val == 1 {
 				_, err = r.ShowCard(bg, true)
@@ -84,10 +85,11 @@ func mapWork(r referee, badGyus ...string) (mp map[string]int, err error) {
 				if err != nil {
 					return
 				}
+				mu.Lock()
 				mp[bg] = 2
+				mu.Unlock()
 			}
 		}
-		mu.Unlock()
 	}
 	return
 }
