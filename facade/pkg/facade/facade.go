@@ -32,11 +32,7 @@ type match struct {
 
 // Todo return the string with all motions of the match
 func (m *match) Todo(badGyus ...string) (str string, err error) {
-	var amount int
-	var mp map[string]int
-	var s string
-
-	amount, err = m.footballers.GetQty()
+	amount, err := m.footballers.GetQty()
 	if err != nil {
 		return
 	}
@@ -49,11 +45,11 @@ func (m *match) Todo(badGyus ...string) (str string, err error) {
 		result[i] = str
 	}
 
-	mp, err = mapWork(m.referee, badGyus...)
+	mp, err := mapWork(m.referee, badGyus...)
 	if err != nil {
 		return
 	}
-	s, err = m.referee.GetStatistic()
+	s, err := m.referee.GetStatistic()
 	if err != nil {
 		return
 	}
