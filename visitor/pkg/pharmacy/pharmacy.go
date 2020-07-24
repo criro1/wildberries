@@ -31,7 +31,7 @@ func (p *pharmacy) Accept(v visitor) (str string, err error) {
 
 // Masks return the string about presence or absence of the masks
 func (p *pharmacy) Masks() (str string, err error) {
-	if p.masks == true {
+	if p.masks {
 		str = v1.YesHave
 	} else {
 		str = v1.UnfDidnt

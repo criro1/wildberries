@@ -13,7 +13,6 @@ import (
 
 const (
 	unexpectedError = "unexpected error:"
-	getMood         = "GetMood"
 	visitPharmacy   = "VisitPharmacy"
 	expectedPh      = "Andrey wanted to buy masks\nHe asked, if the prahmacy had them\nYes, we have masks\n"
 	visitMarket     = "VisitMarket"
@@ -23,7 +22,6 @@ const (
 	andrey          = "Andrey"
 	ivan            = "Ivan Modnichkov"
 	nick            = "Nick"
-	vika            = "Victorya"
 	pyaterochka     = "Pyaterochka"
 	masks           = "Masks"
 	mood1           = 55
