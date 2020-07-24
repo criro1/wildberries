@@ -17,8 +17,6 @@ var (
 	choose         = "Choose"
 	todo           = "Todo"
 	pepeKick       = "1 - Pepe kicks the ball"
-	showYellowCard = "ShowYellowCard"
-	showRedCard    = "ShowRedCard"
 	showCard       = "ShowCard"
 	ibrahimovic    = "Ibrahimovic"
 	gusevShowY     = "Gusev shows yellow card to Ibrahimovic"

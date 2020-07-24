@@ -38,7 +38,7 @@ func (r *referee) ShowCard(player string, yellow bool) (str string, err error) {
 	}
 	s := ""
 	switch {
-	case yellow == true:
+	case yellow:
 		r.yellowCard++
 		s = v1.YellowCard
 	default:

@@ -25,7 +25,10 @@ const (
 
 func main() {
 	players := footballer.NewFootballer()
-	players.Add(ramos, modric, casemiro, kroos)
+	err := players.Add(ramos, modric, casemiro, kroos)
+	if err != nil {
+		return
+	}
 
 	referee := referee.NewReferee(scamina, 0, 0)
 
