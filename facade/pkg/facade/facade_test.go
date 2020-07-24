@@ -11,19 +11,19 @@ import (
 )
 
 var (
-	expected       = "1 - Pepe kicks the ball\nReferee Gusev shows 2 yellow cards and 1 red cards in this match\nFootballer Ibrahimovic got red card\n"
-	add            = "Add"
-	getQty         = "GetQty"
-	choose         = "Choose"
-	todo           = "Todo"
-	pepeKick       = "1 - Pepe kicks the ball"
-	showCard       = "ShowCard"
-	ibrahimovic    = "Ibrahimovic"
-	gusevShowY     = "Gusev shows yellow card to Ibrahimovic"
-	gusevShowR     = "Gusev shows red card to Ibrahimovic"
-	getStatistic   = "GetStatistic"
-	refereeResult  = "Referee Gusev shows 2 yellow cards and 1 red cards in this match\n"
-	unexpErr       = "unexpected error:"
+	expected      = "1 - Pepe kicks the ball\nReferee Gusev shows 2 yellow cards and 1 red cards in this match\nFootballer Ibrahimovic got red card\n"
+	add           = "Add"
+	getQty        = "GetQty"
+	choose        = "Choose"
+	todo          = "Todo"
+	pepeKick      = "1 - Pepe kicks the ball"
+	showCard      = "ShowCard"
+	ibrahimovic   = "Ibrahimovic"
+	gusevShowY    = "Gusev shows yellow card to Ibrahimovic"
+	gusevShowR    = "Gusev shows red card to Ibrahimovic"
+	getStatistic  = "GetStatistic"
+	refereeResult = "Referee Gusev shows 2 yellow cards and 1 red cards in this match\n"
+	unexpErr      = "unexpected error:"
 )
 
 func TestFacade(t *testing.T) {
