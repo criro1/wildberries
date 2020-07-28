@@ -1,1 +1,1 @@
-Pattern `Facade`
+Patterns
